@@ -48,26 +48,128 @@
       font-size: 17px;
       font-weight: bold;
     }
+
+    .option {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 14px 0;
+      border-bottom: 1px solid #eee;
+      font-size: 17px;
+    }
+
+    .option:last-child {
+      border-bottom: none;
+    }
+
+    .hidden {
+      display: none;
+    }
+
+    .back {
+      border: none;
+      background: none;
+      color: #007aff;
+      font-size: 17px;
+      padding: 0;
+      margin-bottom: 16px;
+    }
   </style>
 </head>
 
 <body>
   <div class="container">
 
-    <h1>旅行持ち物メモ</h1>
-    <div class="subtitle">
-      旅行パターンを組み合わせて、持ち物リストを作ります
+    <div id="home">
+      <h1>旅行持ち物メモ</h1>
+
+      <div class="subtitle">
+        旅行パターンを組み合わせて、持ち物リストを作ります
+      </div>
+
+      <div class="card">
+        <h2>次の旅行</h2>
+        <p>まだ旅行は登録されていません。</p>
+      </div>
+
+      <button class="button" onclick="showCreateTrip()">
+        ＋ 新しい旅行を作る
+      </button>
     </div>
 
-    <div class="card">
-      <h2>次の旅行</h2>
-      <p>まだ旅行は登録されていません。</p>
-    </div>
+    <div id="createTrip" class="hidden">
+      <button class="back" onclick="showHome()">
+        ← 戻る
+      </button>
 
-    <button class="button">
-      ＋ 新しい旅行を作る
-    </button>
+      <h1>新しい旅行</h1>
+
+      <div class="subtitle">
+        当てはまる旅行パターンを選んでください
+      </div>
+
+      <div class="card">
+
+        <label class="option">
+          <input type="checkbox">
+          基本
+        </label>
+
+        <label class="option">
+          <input type="checkbox">
+          国内旅行
+        </label>
+
+        <label class="option">
+          <input type="checkbox">
+          海外旅行
+        </label>
+
+        <label class="option">
+          <input type="checkbox">
+          子連れ
+        </label>
+
+        <label class="option">
+          <input type="checkbox">
+          夏
+        </label>
+
+        <label class="option">
+          <input type="checkbox">
+          冬
+        </label>
+
+        <label class="option">
+          <input type="checkbox">
+          温泉
+        </label>
+
+        <label class="option">
+          <input type="checkbox">
+          海・プール
+        </label>
+
+      </div>
+
+      <button class="button">
+        チェックリストを作る
+      </button>
+    </div>
 
   </div>
+
+  <script>
+    function showCreateTrip() {
+      document.getElementById("home").classList.add("hidden");
+      document.getElementById("createTrip").classList.remove("hidden");
+    }
+
+    function showHome() {
+      document.getElementById("createTrip").classList.add("hidden");
+      document.getElementById("home").classList.remove("hidden");
+    }
+  </script>
+
 </body>
 </html>
