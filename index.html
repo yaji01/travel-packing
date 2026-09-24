@@ -371,6 +371,27 @@
       border-radius: 6px;
       flex-shrink: 0;
     }
+
+    .backup-box {
+      margin-top: 28px;
+    }
+
+    .backup-title {
+      font-size: 18px;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+
+    .backup-note {
+      color: #777;
+      font-size: 13px;
+      line-height: 1.5;
+      margin-bottom: 12px;
+    }
+
+    .file-input {
+      display: none;
+    }
   </style>
 </head>
 
@@ -403,6 +424,41 @@
         テンプレートを編集
       </button>
 
+      <div class="card backup-box">
+
+        <div class="backup-title">
+          バックアップ
+        </div>
+
+        <div class="backup-note">
+          旅行データとテンプレート設定をJSONファイルとして保存できます。
+          iCloud Driveなどに保管しておくと安心です。
+        </div>
+
+        <button
+          class="button secondary"
+          onclick="exportBackup()"
+        >
+          バックアップを書き出す
+        </button>
+
+        <button
+          class="button secondary"
+          onclick="selectBackupFile()"
+        >
+          バックアップから復元
+        </button>
+
+        <input
+          id="backupFileInput"
+          class="file-input"
+          type="file"
+          accept=".json,application/json"
+          onchange="importBackup(event)"
+        >
+
+      </div>
+
     </section>
 
 
@@ -416,7 +472,9 @@
         ← 戻る
       </button>
 
-      <h1 id="createTripTitle">新しい旅行</h1>
+      <h1 id="createTripTitle">
+        新しい旅行
+      </h1>
 
       <div class="subtitle">
         旅行情報と、当てはまる旅行パターンを選んでください。
@@ -515,7 +573,9 @@
         ← 旅行一覧
       </button>
 
-      <h1 id="packingTripName">持ち物リスト</h1>
+      <h1 id="packingTripName">
+        持ち物リスト
+      </h1>
 
       <div
         id="packingTripDates"
@@ -534,7 +594,6 @@
 
       <div id="packingItems"></div>
 
-      <!-- 今回だけ追加 -->
       <div class="card">
 
         <h2>今回だけ追加</h2>
@@ -557,7 +616,6 @@
 
       </div>
 
-      <!-- 外した持ち物 -->
       <div
         id="removedItemsCard"
         class="card hidden"
@@ -639,7 +697,9 @@
         ← テンプレート一覧
       </button>
 
-      <h1 id="templateEditorTitle">テンプレート編集</h1>
+      <h1 id="templateEditorTitle">
+        テンプレート編集
+      </h1>
 
       <div class="subtitle">
         項目の追加・削除ができます。
@@ -770,13 +830,11 @@
 
 
     function cloneDefaultTemplates() {
-
       return JSON.parse(
         JSON.stringify(
           defaultTemplates
         )
       );
-
     }
 
 
@@ -792,13 +850,9 @@
       }
 
       try {
-
         return JSON.parse(saved);
-
       } catch {
-
         return cloneDefaultTemplates();
-
       }
 
     }
@@ -952,10 +1006,9 @@
             oldTrip
           ]);
 
-          localStorage
-            .removeItem(
-              OLD_TRIP_STORAGE_KEY
-            );
+          localStorage.removeItem(
+            OLD_TRIP_STORAGE_KEY
+          );
 
         }
 
@@ -994,7 +1047,6 @@
       editingTripId = null;
 
       hideAllScreens();
-
       renderTripList();
 
       document
@@ -1011,7 +1063,6 @@
     function startNewTrip() {
 
       editingTripId = null;
-
       clearTripForm();
 
       document
@@ -1077,7 +1128,6 @@
           .value
           .trim();
 
-
       const startDate =
         document
           .getElementById(
@@ -1085,14 +1135,12 @@
           )
           .value;
 
-
       const endDate =
         document
           .getElementById(
             "endDate"
           )
           .value;
-
 
       const selectedTypes =
         Array.from(
@@ -1108,26 +1156,20 @@
 
 
       if (!tripName) {
-
         alert(
           "旅行名を入力してください"
         );
-
         return;
-
       }
 
 
       if (
         selectedTypes.length === 0
       ) {
-
         alert(
           "旅行パターンを1つ以上選んでください"
         );
-
         return;
-
       }
 
 
@@ -1136,13 +1178,10 @@
         endDate &&
         endDate < startDate
       ) {
-
         alert(
           "帰宅日は出発日以降にしてください"
         );
-
         return;
-
       }
 
 
@@ -1168,13 +1207,10 @@
         if (
           index === -1
         ) {
-
           alert(
             "旅行データが見つかりません"
           );
-
           return;
-
         }
 
 
@@ -1182,7 +1218,6 @@
           normalizeTrip(
             trips[index]
           );
-
 
         trip.tripName =
           tripName;
@@ -1195,7 +1230,6 @@
 
         trip.selectedTypes =
           selectedTypes;
-
 
         trips[index] =
           trip;
@@ -1229,7 +1263,6 @@
             []
 
         };
-
 
         trips.push(
           trip
@@ -1285,10 +1318,9 @@
         empty.textContent =
           "まだ旅行は登録されていません。";
 
-        container
-          .appendChild(
-            empty
-          );
+        container.appendChild(
+          empty
+        );
 
         return;
 
@@ -1303,12 +1335,10 @@
               a.startDate &&
               b.startDate
             ) {
-
               return a.startDate
                 .localeCompare(
                   b.startDate
                 );
-
             }
 
             if (a.startDate) {
@@ -1371,12 +1401,10 @@
             trip.selectedTypes
               .map(
                 function(type) {
-
                   return (
                     templates[type]
                       ?.title
                   );
-
                 }
               )
               .filter(Boolean);
@@ -1406,14 +1434,12 @@
           const checkedCount =
             allItems.filter(
               function(item) {
-
                 return (
                   trip.checkedItems
                   || []
                 ).includes(
                   item
                 );
-
               }
             ).length;
 
@@ -1458,11 +1484,9 @@
 
           openButton.onclick =
             function() {
-
               openTrip(
                 trip.id
               );
-
             };
 
 
@@ -1480,11 +1504,9 @@
 
           editButton.onclick =
             function() {
-
               editTrip(
                 trip.id
               );
-
             };
 
 
@@ -1505,11 +1527,9 @@
           if (
             dates.textContent
           ) {
-
             card.appendChild(
               dates
             );
-
           }
 
 
@@ -1526,10 +1546,9 @@
           );
 
 
-          container
-            .appendChild(
-              card
-            );
+          container.appendChild(
+            card
+          );
 
         }
       );
@@ -1562,11 +1581,9 @@
             template.items
               .forEach(
                 function(item) {
-
                   set.add(
                     item
                   );
-
                 }
               );
 
@@ -1595,13 +1612,12 @@
       const baseItems =
         getTemplateItemsForTrip(
           trip
-        ).filter(
+        )
+        .filter(
           function(item) {
-
             return !removed.has(
               item
             );
-
           }
         );
 
@@ -1621,11 +1637,9 @@
           if (
             !removed.has(item)
           ) {
-
             all.add(
               item
             );
-
           }
 
         }
@@ -1649,24 +1663,19 @@
       const trip =
         trips.find(
           function(item) {
-
             return (
               item.id ===
               tripId
             );
-
           }
         );
 
 
       if (!trip) {
-
         alert(
           "旅行データが見つかりません"
         );
-
         return;
-
       }
 
 
@@ -1808,12 +1817,9 @@
             if (
               addedCount > 0
             ) {
-
-              packingItems
-                .appendChild(
-                  card
-                );
-
+              packingItems.appendChild(
+                card
+              );
             }
 
           }
@@ -1821,15 +1827,14 @@
 
 
       const visibleExtraItems =
-        trip.extraItems.filter(
-          function(item) {
-
-            return (
-              !removed.has(item)
-            );
-
-          }
-        );
+        trip.extraItems
+          .filter(
+            function(item) {
+              return (
+                !removed.has(item)
+              );
+            }
+          );
 
 
       if (
@@ -1871,19 +1876,17 @@
                   true
                 );
 
-              extraCard
-                .appendChild(
-                  row
-                );
+              extraCard.appendChild(
+                row
+              );
 
             }
           );
 
 
-        packingItems
-          .appendChild(
-            extraCard
-          );
+        packingItems.appendChild(
+          extraCard
+        );
 
       }
 
@@ -1984,47 +1987,40 @@
       if (
         checkbox.checked
       ) {
-
         label.classList.add(
           "checked"
         );
-
       }
 
 
-      checkbox
-        .addEventListener(
-          "change",
-          function() {
+      checkbox.addEventListener(
+        "change",
+        function() {
 
-            updateTripCheck(
-              trip.id,
-              item,
-              checkbox.checked
+          updateTripCheck(
+            trip.id,
+            item,
+            checkbox.checked
+          );
+
+
+          if (
+            checkbox.checked
+          ) {
+            label.classList.add(
+              "checked"
             );
-
-
-            if (
-              checkbox.checked
-            ) {
-
-              label.classList.add(
-                "checked"
-              );
-
-            } else {
-
-              label.classList.remove(
-                "checked"
-              );
-
-            }
-
-
-            updateProgress();
-
+          } else {
+            label.classList.remove(
+              "checked"
+            );
           }
-        );
+
+
+          updateProgress();
+
+        }
+      );
 
 
       const text =
@@ -2123,18 +2119,15 @@
 
     function addTripItem() {
 
-      if (
-        !currentTripId
-      ) {
+      if (!currentTripId) {
         return;
       }
 
 
       const input =
-        document
-          .getElementById(
-            "newTripItem"
-          );
+        document.getElementById(
+          "newTripItem"
+        );
 
 
       const value =
@@ -2153,12 +2146,10 @@
       const index =
         trips.findIndex(
           function(trip) {
-
             return (
               trip.id ===
               currentTripId
             );
-
           }
         );
 
@@ -2270,12 +2261,10 @@
       const index =
         trips.findIndex(
           function(trip) {
-
             return (
               trip.id ===
               tripId
             );
-
           }
         );
 
@@ -2297,10 +2286,9 @@
         !trip.removedItems
           .includes(item)
       ) {
-
-        trip.removedItems
-          .push(item);
-
+        trip.removedItems.push(
+          item
+        );
       }
 
 
@@ -2310,12 +2298,10 @@
             function(
               checkedItem
             ) {
-
               return (
-                checkedItem
-                !== item
+                checkedItem !==
+                item
               );
-
             }
           );
 
@@ -2348,12 +2334,10 @@
       const index =
         trips.findIndex(
           function(trip) {
-
             return (
               trip.id ===
               tripId
             );
-
           }
         );
 
@@ -2377,12 +2361,10 @@
             function(
               extraItem
             ) {
-
               return (
-                extraItem
-                !== item
+                extraItem !==
+                item
               );
-
             }
           );
 
@@ -2393,12 +2375,10 @@
             function(
               checkedItem
             ) {
-
               return (
-                checkedItem
-                !== item
+                checkedItem !==
+                item
               );
-
             }
           );
 
@@ -2409,12 +2389,10 @@
             function(
               removedItem
             ) {
-
               return (
-                removedItem
-                !== item
+                removedItem !==
+                item
               );
-
             }
           );
 
@@ -2440,17 +2418,15 @@
     ) {
 
       const card =
-        document
-          .getElementById(
-            "removedItemsCard"
-          );
+        document.getElementById(
+          "removedItemsCard"
+        );
 
 
       const container =
-        document
-          .getElementById(
-            "removedItems"
-          );
+        document.getElementById(
+          "removedItems"
+        );
 
 
       container.innerHTML =
@@ -2458,20 +2434,16 @@
 
 
       const removed =
-        trip.removedItems
-        || [];
+        trip.removedItems || [];
 
 
       if (
         removed.length === 0
       ) {
-
         card.classList.add(
           "hidden"
         );
-
         return;
-
       }
 
 
@@ -2561,12 +2533,10 @@
       const index =
         trips.findIndex(
           function(trip) {
-
             return (
               trip.id ===
               tripId
             );
-
           }
         );
 
@@ -2590,12 +2560,10 @@
             function(
               removedItem
             ) {
-
               return (
-                removedItem
-                !== item
+                removedItem !==
+                item
               );
-
             }
           );
 
@@ -2629,12 +2597,10 @@
       const index =
         trips.findIndex(
           function(trip) {
-
             return (
               trip.id ===
               tripId
             );
-
           }
         );
 
@@ -2659,17 +2625,13 @@
 
 
       if (checked) {
-
         set.add(
           item
         );
-
       } else {
-
         set.delete(
           item
         );
-
       }
 
 
@@ -2708,9 +2670,7 @@
         )
         .filter(
           function(box) {
-
             return box.checked;
-
           }
         )
         .length;
@@ -2732,9 +2692,7 @@
 
     function clearAllChecks() {
 
-      if (
-        !currentTripId
-      ) {
+      if (!currentTripId) {
         return;
       }
 
@@ -2746,12 +2704,10 @@
       const index =
         trips.findIndex(
           function(trip) {
-
             return (
               trip.id ===
               currentTripId
             );
-
           }
         );
 
@@ -2782,9 +2738,7 @@
 
     function editCurrentTrip() {
 
-      if (
-        !currentTripId
-      ) {
+      if (!currentTripId) {
         return;
       }
 
@@ -2807,12 +2761,10 @@
       const trip =
         trips.find(
           function(item) {
-
             return (
               item.id ===
               tripId
             );
-
           }
         );
 
@@ -2891,9 +2843,7 @@
 
     function deleteCurrentTrip() {
 
-      if (
-        !currentTripId
-      ) {
+      if (!currentTripId) {
         return;
       }
 
@@ -2913,12 +2863,10 @@
         getTrips()
           .filter(
             function(trip) {
-
               return (
-                trip.id
-                !== currentTripId
+                trip.id !==
+                currentTripId
               );
-
             }
           );
 
@@ -2962,10 +2910,9 @@
 
 
       const container =
-        document
-          .getElementById(
-            "templateListContainer"
-          );
+        document.getElementById(
+          "templateListContainer"
+        );
 
 
       container.innerHTML =
@@ -3140,10 +3087,9 @@
 
 
       const container =
-        document
-          .getElementById(
-            "templateItems"
-          );
+        document.getElementById(
+          "templateItems"
+        );
 
 
       container.innerHTML =
@@ -3217,10 +3163,9 @@
             );
 
 
-            container
-              .appendChild(
-                row
-              );
+            container.appendChild(
+              row
+            );
 
           }
         );
@@ -3231,10 +3176,9 @@
     function addTemplateItem() {
 
       const input =
-        document
-          .getElementById(
-            "newTemplateItem"
-          );
+        document.getElementById(
+          "newTemplateItem"
+        );
 
 
       const value =
@@ -3357,6 +3301,262 @@
     }
 
 
+    function exportBackup() {
+
+      const backupData = {
+
+        app:
+          "travel-packing",
+
+        version:
+          1,
+
+        exportedAt:
+          new Date()
+            .toISOString(),
+
+        trips:
+          getTrips(),
+
+        templates:
+          getTemplates()
+
+      };
+
+
+      const json =
+        JSON.stringify(
+          backupData,
+          null,
+          2
+        );
+
+
+      const blob =
+        new Blob(
+          [json],
+          {
+            type:
+              "application/json"
+          }
+        );
+
+
+      const url =
+        URL.createObjectURL(
+          blob
+        );
+
+
+      const link =
+        document.createElement(
+          "a"
+        );
+
+
+      const today =
+        new Date();
+
+
+      const filename =
+        "travel-packing-backup-"
+        + today
+          .getFullYear()
+        + "-"
+        + String(
+            today.getMonth() + 1
+          ).padStart(
+            2,
+            "0"
+          )
+        + "-"
+        + String(
+            today.getDate()
+          ).padStart(
+            2,
+            "0"
+          )
+        + ".json";
+
+
+      link.href =
+        url;
+
+      link.download =
+        filename;
+
+
+      document.body.appendChild(
+        link
+      );
+
+
+      link.click();
+
+
+      document.body.removeChild(
+        link
+      );
+
+
+      setTimeout(
+        function() {
+
+          URL.revokeObjectURL(
+            url
+          );
+
+        },
+        1000
+      );
+
+    }
+
+
+    function selectBackupFile() {
+
+      document
+        .getElementById(
+          "backupFileInput"
+        )
+        .click();
+
+    }
+
+
+    function importBackup(
+      event
+    ) {
+
+      const file =
+        event.target
+          .files[0];
+
+
+      if (!file) {
+        return;
+      }
+
+
+      const reader =
+        new FileReader();
+
+
+      reader.onload =
+        function() {
+
+          try {
+
+            const data =
+              JSON.parse(
+                reader.result
+              );
+
+
+            if (
+              !data ||
+              data.app !==
+                "travel-packing"
+            ) {
+
+              throw new Error(
+                "形式が違います"
+              );
+
+            }
+
+
+            if (
+              !Array.isArray(
+                data.trips
+              )
+            ) {
+
+              throw new Error(
+                "旅行データがありません"
+              );
+
+            }
+
+
+            if (
+              !data.templates ||
+              typeof data.templates
+                !== "object"
+            ) {
+
+              throw new Error(
+                "テンプレートデータがありません"
+              );
+
+            }
+
+
+            const ok =
+              confirm(
+                "現在の旅行データとテンプレートを、バックアップの内容で置き換えますか？"
+              );
+
+
+            if (!ok) {
+              event.target.value =
+                "";
+              return;
+            }
+
+
+            const normalizedTrips =
+              data.trips.map(
+                function(trip) {
+
+                  return normalizeTrip(
+                    trip
+                  );
+
+                }
+              );
+
+
+            saveTrips(
+              normalizedTrips
+            );
+
+
+            saveTemplates(
+              data.templates
+            );
+
+
+            showHome();
+
+
+            alert(
+              "バックアップを復元しました"
+            );
+
+
+          } catch (error) {
+
+            alert(
+              "このバックアップファイルは読み込めませんでした"
+            );
+
+          }
+
+
+          event.target.value =
+            "";
+
+        };
+
+
+      reader.readAsText(
+        file
+      );
+
+    }
+
+
     function formatDateRange(
       startDate,
       endDate
@@ -3374,11 +3574,9 @@
         startDate &&
         !endDate
       ) {
-
         return formatDate(
           startDate
         );
-
       }
 
 
@@ -3386,11 +3584,9 @@
         !startDate &&
         endDate
       ) {
-
         return formatDate(
           endDate
         );
-
       }
 
 
@@ -3459,20 +3655,12 @@
 
       migrateOldTripData();
 
-      /*
-        既存の旅行データに
-        extraItems / removedItems がなくても
-        自動で追加して保存する
-      */
-
       const trips =
         getTrips();
-
 
       saveTrips(
         trips
       );
-
 
       renderTripList();
 
