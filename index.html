@@ -24,6 +24,10 @@
       margin-bottom: 8px;
     }
 
+    h2 {
+      font-size: 20px;
+    }
+
     .subtitle {
       color: #666;
       margin-bottom: 24px;
@@ -62,6 +66,24 @@
       border-bottom: none;
     }
 
+    .packing-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 13px 0;
+      border-bottom: 1px solid #eee;
+      font-size: 17px;
+    }
+
+    .packing-item:last-child {
+      border-bottom: none;
+    }
+
+    input[type="checkbox"] {
+      width: 22px;
+      height: 22px;
+    }
+
     .hidden {
       display: none;
     }
@@ -80,6 +102,7 @@
 <body>
   <div class="container">
 
+    <!-- ホーム -->
     <div id="home">
       <h1>旅行持ち物メモ</h1>
 
@@ -97,7 +120,9 @@
       </button>
     </div>
 
+    <!-- 旅行パターン選択 -->
     <div id="createTrip" class="hidden">
+
       <button class="back" onclick="showHome()">
         ← 戻る
       </button>
@@ -111,64 +136,245 @@
       <div class="card">
 
         <label class="option">
-          <input type="checkbox">
+          <input type="checkbox" value="basic" class="trip-type">
           基本
         </label>
 
         <label class="option">
-          <input type="checkbox">
+          <input type="checkbox" value="domestic" class="trip-type">
           国内旅行
         </label>
 
         <label class="option">
-          <input type="checkbox">
+          <input type="checkbox" value="overseas" class="trip-type">
           海外旅行
         </label>
 
         <label class="option">
-          <input type="checkbox">
+          <input type="checkbox" value="children" class="trip-type">
           子連れ
         </label>
 
         <label class="option">
-          <input type="checkbox">
+          <input type="checkbox" value="summer" class="trip-type">
           夏
         </label>
 
         <label class="option">
-          <input type="checkbox">
+          <input type="checkbox" value="winter" class="trip-type">
           冬
         </label>
 
         <label class="option">
-          <input type="checkbox">
+          <input type="checkbox" value="onsen" class="trip-type">
           温泉
         </label>
 
         <label class="option">
-          <input type="checkbox">
+          <input type="checkbox" value="pool" class="trip-type">
           海・プール
         </label>
 
       </div>
 
-      <button class="button">
+      <button class="button" onclick="createPackingList()">
         チェックリストを作る
       </button>
+
+    </div>
+
+    <!-- 持ち物リスト -->
+    <div id="packingList" class="hidden">
+
+      <button class="back" onclick="showCreateTrip()">
+        ← パターン選択に戻る
+      </button>
+
+      <h1>持ち物リスト</h1>
+
+      <div class="subtitle">
+        準備できたものにチェックを入れてください
+      </div>
+
+      <div id="packingItems"></div>
+
     </div>
 
   </div>
 
   <script>
+
+    const templates = {
+
+      basic: {
+        "基本": [
+          "財布",
+          "iPhone",
+          "充電ケーブル",
+          "モバイルバッテリー",
+          "下着",
+          "靴下",
+          "歯ブラシ",
+          "常備薬"
+        ]
+      },
+
+      domestic: {
+        "国内旅行": [
+          "健康保険証",
+          "交通系ICカード"
+        ]
+      },
+
+      overseas: {
+        "海外旅行": [
+          "パスポート",
+          "クレジットカード",
+          "海外旅行保険",
+          "eSIM",
+          "変換プラグ"
+        ]
+      },
+
+      children: {
+        "子ども": [
+          "子どもの着替え",
+          "子どもの保険証",
+          "お菓子",
+          "おもちゃ",
+          "ウェットティッシュ"
+        ]
+      },
+
+      summer: {
+        "夏": [
+          "帽子",
+          "日焼け止め",
+          "サングラス"
+        ]
+      },
+
+      winter: {
+        "冬": [
+          "防寒着",
+          "手袋",
+          "マフラー"
+        ]
+      },
+
+      onsen: {
+        "温泉": [
+          "スキンケア用品",
+          "替えの下着"
+        ]
+      },
+
+      pool: {
+        "海・プール": [
+          "水着",
+          "ゴーグル",
+          "タオル",
+          "防水バッグ"
+        ]
+      }
+
+    };
+
+
     function showCreateTrip() {
       document.getElementById("home").classList.add("hidden");
+      document.getElementById("packingList").classList.add("hidden");
       document.getElementById("createTrip").classList.remove("hidden");
     }
 
+
     function showHome() {
       document.getElementById("createTrip").classList.add("hidden");
+      document.getElementById("packingList").classList.add("hidden");
       document.getElementById("home").classList.remove("hidden");
     }
+
+
+    function createPackingList() {
+
+      const selected =
+        document.querySelectorAll(".trip-type:checked");
+
+      if (selected.length === 0) {
+        alert("旅行パターンを1つ以上選んでください");
+        return;
+      }
+
+      const packingItems =
+        document.getElementById("packingItems");
+
+      packingItems.innerHTML = "";
+
+      const addedItems = new Set();
+
+      selected.forEach(option => {
+
+        const template = templates[option.value];
+
+        for (const category in template) {
+
+          const items = template[category];
+
+          const uniqueItems =
+            items.filter(item => !addedItems.has(item));
+
+          if (uniqueItems.length === 0) return;
+
+          const card = document.createElement("div");
+          card.className = "card";
+
+          const title = document.createElement("h2");
+          title.textContent = category;
+
+          card.appendChild(title);
+
+          uniqueItems.forEach(item => {
+
+            addedItems.add(item);
+
+            const label =
+              document.createElement("label");
+
+            label.className = "packing-item";
+
+            const checkbox =
+              document.createElement("input");
+
+            checkbox.type = "checkbox";
+
+            const text =
+              document.createElement("span");
+
+            text.textContent = item;
+
+            label.appendChild(checkbox);
+            label.appendChild(text);
+
+            card.appendChild(label);
+
+          });
+
+          packingItems.appendChild(card);
+
+        }
+
+      });
+
+      document
+        .getElementById("createTrip")
+        .classList.add("hidden");
+
+      document
+        .getElementById("packingList")
+        .classList.remove("hidden");
+
+    }
+
   </script>
 
 </body>
