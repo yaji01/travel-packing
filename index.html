@@ -64,6 +64,19 @@
       font-size: 17px;
       font-weight: 600;
       cursor: pointer;
+      margin-top: 12px;
+    }
+
+    .button.secondary {
+      background: white;
+      color: #007aff;
+      border: 1px solid #d7d7dc;
+    }
+
+    .button.danger {
+      background: white;
+      color: #d70015;
+      border: 1px solid #d7d7dc;
     }
 
     .button:active {
@@ -106,6 +119,11 @@
       border-bottom: none;
     }
 
+    .packing-item.checked span {
+      color: #999;
+      text-decoration: line-through;
+    }
+
     input[type="checkbox"] {
       width: 22px;
       height: 22px;
@@ -125,6 +143,17 @@
       font-size: 14px;
       line-height: 1.5;
     }
+
+    .progress {
+      margin-bottom: 18px;
+      font-size: 15px;
+      color: #666;
+    }
+
+    .progress strong {
+      color: #222;
+      font-size: 18px;
+    }
   </style>
 </head>
 
@@ -142,13 +171,24 @@
         自分用の持ち物リストを作ります。
       </div>
 
-      <div class="card">
+      <div id="homeStatus" class="card">
         <h2>次の旅行</h2>
         <p>まだ旅行は登録されていません。</p>
       </div>
 
-      <button class="button" onclick="showCreateTrip()">
+      <button
+        class="button"
+        onclick="showCreateTrip()"
+      >
         ＋ 新しい旅行を作る
+      </button>
+
+      <button
+        id="continueButton"
+        class="button secondary hidden"
+        onclick="openSavedPackingList()"
+      >
+        保存中のチェックリストを開く
       </button>
 
     </section>
@@ -157,7 +197,10 @@
     <!-- パターン選択 -->
     <section id="createTrip" class="hidden">
 
-      <button class="back" onclick="showHome()">
+      <button
+        class="back"
+        onclick="showHome()"
+      >
         ← 戻る
       </button>
 
@@ -258,7 +301,7 @@
 
       <button
         class="back"
-        onclick="showCreateTrip()"
+        onclick="showCreateTrip(true)"
       >
         ← パターン選択に戻る
       </button>
@@ -270,11 +313,26 @@
         class="selected-summary"
       ></div>
 
-      <div class="subtitle">
-        準備できたものにチェックを入れてください。
-      </div>
+      <div
+        id="progress"
+        class="progress"
+      ></div>
 
       <div id="packingItems"></div>
+
+      <button
+        class="button secondary"
+        onclick="clearAllChecks()"
+      >
+        チェックを全部外す
+      </button>
+
+      <button
+        class="button danger"
+        onclick="deleteSavedTrip()"
+      >
+        この旅行を削除する
+      </button>
 
     </section>
 
@@ -282,6 +340,9 @@
 
 
   <script>
+
+    const STORAGE_KEY =
+      "travelPackingData";
 
     const templates = {
 
@@ -368,7 +429,40 @@
     };
 
 
+    function getSavedData() {
+
+      const saved =
+        localStorage.getItem(
+          STORAGE_KEY
+        );
+
+      if (!saved) {
+        return null;
+      }
+
+      try {
+        return JSON.parse(saved);
+      } catch {
+        return null;
+      }
+
+    }
+
+
+    function saveData(data) {
+
+      localStorage.setItem(
+        STORAGE_KEY,
+        JSON.stringify(data)
+      );
+
+      updateHomeStatus();
+
+    }
+
+
     function hideAllScreens() {
+
       document
         .getElementById("home")
         .classList.add("hidden");
@@ -380,24 +474,62 @@
       document
         .getElementById("packingList")
         .classList.add("hidden");
+
     }
 
 
     function showHome() {
+
       hideAllScreens();
+
+      updateHomeStatus();
 
       document
         .getElementById("home")
         .classList.remove("hidden");
+
     }
 
 
-    function showCreateTrip() {
+    function showCreateTrip(
+      keepCurrentSelection = false
+    ) {
+
       hideAllScreens();
 
+      if (keepCurrentSelection) {
+
+        const saved =
+          getSavedData();
+
+        if (saved) {
+
+          document
+            .querySelectorAll(
+              ".trip-type"
+            )
+            .forEach(function(box) {
+
+              box.checked =
+                saved.selectedTypes
+                  .includes(
+                    box.value
+                  );
+
+            });
+
+        }
+
+      }
+
       document
-        .getElementById("createTrip")
-        .classList.remove("hidden");
+        .getElementById(
+          "createTrip"
+        )
+        .classList.remove(
+          "hidden"
+        );
+
     }
 
 
@@ -410,12 +542,57 @@
           )
         );
 
-      if (selected.length === 0) {
+      if (
+        selected.length === 0
+      ) {
+
         alert(
           "旅行パターンを1つ以上選んでください"
         );
+
         return;
+
       }
+
+      const selectedTypes =
+        selected.map(
+          function(option) {
+            return option.value;
+          }
+        );
+
+
+      const previous =
+        getSavedData();
+
+
+      let checkedItems = [];
+
+      if (previous) {
+        checkedItems =
+          previous.checkedItems || [];
+      }
+
+
+      const data = {
+        selectedTypes:
+          selectedTypes,
+
+        checkedItems:
+          checkedItems
+      };
+
+
+      saveData(data);
+
+      renderPackingList(data);
+
+    }
+
+
+    function renderPackingList(
+      data
+    ) {
 
       const packingItems =
         document.getElementById(
@@ -425,107 +602,158 @@
       packingItems.innerHTML = "";
 
       const selectedNames = [];
-      const alreadyAdded = new Set();
+
+      const alreadyAdded =
+        new Set();
 
 
-      selected.forEach(function(option) {
+      data.selectedTypes.forEach(
+        function(type) {
 
-        const template =
-          templates[option.value];
+          const template =
+            templates[type];
 
-        if (!template) {
-          return;
-        }
-
-        selectedNames.push(
-          template.title
-        );
-
-
-        const card =
-          document.createElement("div");
-
-        card.className = "card";
-
-
-        const heading =
-          document.createElement("h2");
-
-        heading.textContent =
-          template.title;
-
-        card.appendChild(heading);
-
-
-        let addedToThisCard = 0;
-
-
-        template.items.forEach(
-          function(item) {
-
-            if (
-              alreadyAdded.has(item)
-            ) {
-              return;
-            }
-
-            alreadyAdded.add(item);
-
-            addedToThisCard++;
-
-
-            const label =
-              document.createElement(
-                "label"
-              );
-
-            label.className =
-              "packing-item";
-
-
-            const checkbox =
-              document.createElement(
-                "input"
-              );
-
-            checkbox.type =
-              "checkbox";
-
-
-            const text =
-              document.createElement(
-                "span"
-              );
-
-            text.textContent =
-              item;
-
-
-            label.appendChild(
-              checkbox
-            );
-
-            label.appendChild(
-              text
-            );
-
-            card.appendChild(
-              label
-            );
-
+          if (!template) {
+            return;
           }
-        );
 
-
-        if (
-          addedToThisCard > 0
-        ) {
-          packingItems.appendChild(
-            card
+          selectedNames.push(
+            template.title
           );
-        }
 
-      });
+
+          const card =
+            document.createElement(
+              "div"
+            );
+
+          card.className = "card";
+
+
+          const heading =
+            document.createElement(
+              "h2"
+            );
+
+          heading.textContent =
+            template.title;
+
+          card.appendChild(
+            heading
+          );
+
+
+          let addedCount = 0;
+
+
+          template.items.forEach(
+            function(item) {
+
+              if (
+                alreadyAdded.has(item)
+              ) {
+                return;
+              }
+
+              alreadyAdded.add(item);
+
+              addedCount++;
+
+
+              const label =
+                document.createElement(
+                  "label"
+                );
+
+              label.className =
+                "packing-item";
+
+
+              const checkbox =
+                document.createElement(
+                  "input"
+                );
+
+              checkbox.type =
+                "checkbox";
+
+              checkbox.checked =
+                data.checkedItems
+                  .includes(item);
+
+
+              if (
+                checkbox.checked
+              ) {
+                label.classList.add(
+                  "checked"
+                );
+              }
+
+
+              checkbox.addEventListener(
+                "change",
+                function() {
+
+                  toggleItem(
+                    item,
+                    checkbox.checked
+                  );
+
+                  if (
+                    checkbox.checked
+                  ) {
+                    label.classList.add(
+                      "checked"
+                    );
+                  } else {
+                    label.classList.remove(
+                      "checked"
+                    );
+                  }
+
+                  updateProgress();
+
+                }
+              );
+
+
+              const text =
+                document.createElement(
+                  "span"
+                );
+
+              text.textContent =
+                item;
+
+
+              label.appendChild(
+                checkbox
+              );
+
+              label.appendChild(
+                text
+              );
+
+              card.appendChild(
+                label
+              );
+
+            }
+          );
+
+
+          if (
+            addedCount > 0
+          ) {
+            packingItems
+              .appendChild(
+                card
+              );
+          }
+
+        }
+      );
 
 
       document
@@ -534,7 +762,9 @@
         )
         .textContent =
         "選択中："
-        + selectedNames.join(" ＋ ");
+        + selectedNames.join(
+          " ＋ "
+        );
 
 
       hideAllScreens();
@@ -543,9 +773,241 @@
         .getElementById(
           "packingList"
         )
-        .classList.remove("hidden");
+        .classList.remove(
+          "hidden"
+        );
+
+
+      updateProgress();
 
     }
+
+
+    function toggleItem(
+      item,
+      checked
+    ) {
+
+      const data =
+        getSavedData();
+
+      if (!data) {
+        return;
+      }
+
+      const set =
+        new Set(
+          data.checkedItems || []
+        );
+
+
+      if (checked) {
+
+        set.add(item);
+
+      } else {
+
+        set.delete(item);
+
+      }
+
+
+      data.checkedItems =
+        Array.from(set);
+
+      saveData(data);
+
+    }
+
+
+    function updateProgress() {
+
+      const checkboxes =
+        document.querySelectorAll(
+          "#packingItems input[type='checkbox']"
+        );
+
+      const total =
+        checkboxes.length;
+
+      const checked =
+        Array.from(
+          checkboxes
+        ).filter(
+          function(box) {
+            return box.checked;
+          }
+        ).length;
+
+
+      document
+        .getElementById(
+          "progress"
+        )
+        .innerHTML =
+        "<strong>"
+        + checked
+        + " / "
+        + total
+        + "</strong> 準備済み";
+
+    }
+
+
+    function clearAllChecks() {
+
+      const data =
+        getSavedData();
+
+      if (!data) {
+        return;
+      }
+
+      data.checkedItems = [];
+
+      saveData(data);
+
+      renderPackingList(data);
+
+    }
+
+
+    function deleteSavedTrip() {
+
+      const ok =
+        confirm(
+          "保存中の旅行を削除しますか？"
+        );
+
+      if (!ok) {
+        return;
+      }
+
+      localStorage.removeItem(
+        STORAGE_KEY
+      );
+
+      document
+        .querySelectorAll(
+          ".trip-type"
+        )
+        .forEach(
+          function(box) {
+            box.checked = false;
+          }
+        );
+
+      showHome();
+
+    }
+
+
+    function openSavedPackingList() {
+
+      const data =
+        getSavedData();
+
+      if (!data) {
+        return;
+      }
+
+      renderPackingList(data);
+
+    }
+
+
+    function updateHomeStatus() {
+
+      const data =
+        getSavedData();
+
+      const status =
+        document.getElementById(
+          "homeStatus"
+        );
+
+      const continueButton =
+        document.getElementById(
+          "continueButton"
+        );
+
+
+      if (!data) {
+
+        status.innerHTML =
+          "<h2>次の旅行</h2>"
+          + "<p>"
+          + "まだ旅行は登録されていません。"
+          + "</p>";
+
+        continueButton
+          .classList.add(
+            "hidden"
+          );
+
+        return;
+
+      }
+
+
+      const names =
+        data.selectedTypes
+          .map(
+            function(type) {
+              return templates[type]
+                ?.title;
+            }
+          )
+          .filter(Boolean);
+
+
+      status.innerHTML =
+        "<h2>保存中の旅行</h2>"
+        + "<p>"
+        + names.join(" ＋ ")
+        + "</p>";
+
+
+      continueButton
+        .classList.remove(
+          "hidden"
+        );
+
+    }
+
+
+    function initializeApp() {
+
+      const saved =
+        getSavedData();
+
+      updateHomeStatus();
+
+
+      if (saved) {
+
+        document
+          .querySelectorAll(
+            ".trip-type"
+          )
+          .forEach(
+            function(box) {
+
+              box.checked =
+                saved.selectedTypes
+                  .includes(
+                    box.value
+                  );
+
+            }
+          );
+
+      }
+
+    }
+
+
+    initializeApp();
 
   </script>
 
