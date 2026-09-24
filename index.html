@@ -4,9 +4,70 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>旅行持ち物メモ</title>
+
+  <style>
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", sans-serif;
+      background: #f5f5f7;
+      color: #222;
+    }
+
+    .container {
+      max-width: 600px;
+      margin: 0 auto;
+      padding: 24px 16px;
+    }
+
+    h1 {
+      font-size: 28px;
+      margin-bottom: 8px;
+    }
+
+    .subtitle {
+      color: #666;
+      margin-bottom: 24px;
+    }
+
+    .card {
+      background: white;
+      border-radius: 16px;
+      padding: 20px;
+      margin-bottom: 16px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+    }
+
+    .button {
+      display: block;
+      width: 100%;
+      padding: 14px;
+      border: none;
+      border-radius: 12px;
+      background: #007aff;
+      color: white;
+      font-size: 17px;
+      font-weight: bold;
+    }
+  </style>
 </head>
+
 <body>
-  <h1>旅行持ち物メモ</h1>
-  <p>旅行の持ち物をチェックするアプリです。</p>
+  <div class="container">
+
+    <h1>旅行持ち物メモ</h1>
+    <div class="subtitle">
+      旅行パターンを組み合わせて、持ち物リストを作ります
+    </div>
+
+    <div class="card">
+      <h2>次の旅行</h2>
+      <p>まだ旅行は登録されていません。</p>
+    </div>
+
+    <button class="button">
+      ＋ 新しい旅行を作る
+    </button>
+
+  </div>
 </body>
 </html>
