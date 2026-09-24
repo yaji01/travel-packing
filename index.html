@@ -444,7 +444,6 @@
 
 <div class="container">
 
-  <!-- ホーム -->
   <section id="home">
 
     <h1>旅行持ち物メモ</h1>
@@ -506,7 +505,6 @@
   </section>
 
 
-  <!-- 旅行作成・編集 -->
   <section
     id="createTrip"
     class="hidden"
@@ -586,7 +584,6 @@
   </section>
 
 
-  <!-- 持ち物リスト -->
   <section
     id="packingList"
     class="hidden"
@@ -638,9 +635,7 @@
           placeholder="例：旅行専用の持ち物"
         >
 
-        <button
-          onclick="addTripItem()"
-        >
+        <button onclick="addTripItem()">
           追加
         </button>
 
@@ -689,7 +684,6 @@
   </section>
 
 
-  <!-- テンプレート一覧 -->
   <section
     id="templateList"
     class="hidden"
@@ -725,7 +719,6 @@
   </section>
 
 
-  <!-- 個別テンプレート -->
   <section
     id="templateEditor"
     class="hidden"
@@ -758,9 +751,7 @@
           placeholder="持ち物を追加"
         >
 
-        <button
-          onclick="addTemplateItem()"
-        >
+        <button onclick="addTemplateItem()">
           追加
         </button>
 
@@ -787,8 +778,12 @@ const TEMPLATE_STORAGE_KEY =
 const TEMPLATE_VERSION_KEY =
   "travelPackingTemplateVersion";
 
+/*
+  前回からバージョンを変更。
+  「その他」にプロテインを追加するため。
+*/
 const CURRENT_TEMPLATE_VERSION =
-  "final-8-20260924";
+  "final-8-protein-20260924";
 
 
 let currentTripId = null;
@@ -797,7 +792,7 @@ let currentTemplateKey = null;
 
 
 /*
-  今回確定した8テンプレート
+  確定した8テンプレート
 */
 
 const defaultTemplates = {
@@ -875,7 +870,8 @@ const defaultTemplates = {
     items: [
       "ネックピロー",
       "耳栓",
-      "エコバッグ"
+      "エコバッグ",
+      "プロテイン"
     ]
   },
 
@@ -920,8 +916,7 @@ const defaultTemplates = {
 
 
 /*
-  旧版の初期テンプレート。
-  ユーザーが自分で追加した項目だけを判定するために使用。
+  旧版の初期テンプレート
 */
 
 const legacyDefaultTemplates = {
@@ -1024,9 +1019,7 @@ function upgradeTemplateData(
     !savedTemplates ||
     typeof savedTemplates !== "object"
   ) {
-
     return upgraded;
-
   }
 
 
@@ -1037,6 +1030,7 @@ function upgradeTemplateData(
 
       const saved =
         savedTemplates[key];
+
 
       if (
         !saved ||
@@ -1164,9 +1158,7 @@ function getTemplates() {
 
 
   if (!saved) {
-
     return cloneDefaultTemplates();
-
   }
 
 
@@ -1380,11 +1372,6 @@ function migrateOldTripData() {
 
 }
 
-
-/*
-  古い旅行のテンプレート選択を
-  新8テンプレートへ移行
-*/
 
 function migrateTripTemplateSelections() {
 
@@ -1765,9 +1752,7 @@ function saveTripFromForm() {
     )
     .map(
       function(box) {
-
         return box.value;
-
       }
     );
 
@@ -1990,12 +1975,9 @@ function getTripStatus(
     ) {
 
       return {
-        type:
-          "current",
-        label:
-          "旅行中",
-        rank:
-          0
+        type: "current",
+        label: "旅行中",
+        rank: 0
       };
 
     }
@@ -2006,24 +1988,18 @@ function getTripStatus(
     ) {
 
       return {
-        type:
-          "future",
-        label:
-          "予定",
-        rank:
-          1
+        type: "future",
+        label: "予定",
+        rank: 1
       };
 
     }
 
 
     return {
-      type:
-        "past",
-      label:
-        "終了",
-      rank:
-        3
+      type: "past",
+      label: "終了",
+      rank: 3
     };
 
   }
@@ -2036,12 +2012,9 @@ function getTripStatus(
     ) {
 
       return {
-        type:
-          "future",
-        label:
-          "予定",
-        rank:
-          1
+        type: "future",
+        label: "予定",
+        rank: 1
       };
 
     }
@@ -2052,24 +2025,18 @@ function getTripStatus(
     ) {
 
       return {
-        type:
-          "current",
-        label:
-          "旅行中",
-        rank:
-          0
+        type: "current",
+        label: "旅行中",
+        rank: 0
       };
 
     }
 
 
     return {
-      type:
-        "past",
-      label:
-        "終了",
-      rank:
-        3
+      type: "past",
+      label: "終了",
+      rank: 3
     };
 
   }
@@ -2082,36 +2049,27 @@ function getTripStatus(
     ) {
 
       return {
-        type:
-          "current",
-        label:
-          "旅行中",
-        rank:
-          0
+        type: "current",
+        label: "旅行中",
+        rank: 0
       };
 
     }
 
 
     return {
-      type:
-        "past",
-      label:
-        "終了",
-      rank:
-        3
+      type: "past",
+      label: "終了",
+      rank: 3
     };
 
   }
 
 
   return {
-    type:
-      "undated",
-    label:
-      "日程未定",
-    rank:
-      2
+    type: "undated",
+    label: "日程未定",
+    rank: 2
   };
 
 }
@@ -2418,7 +2376,6 @@ function renderTripList() {
       openButton.className =
         "small-button";
 
-
       openButton.textContent =
         "開く";
 
@@ -2442,7 +2399,6 @@ function renderTripList() {
       editButton.className =
         "small-button";
 
-
       editButton.textContent =
         "編集";
 
@@ -2465,7 +2421,6 @@ function renderTripList() {
 
       deleteButton.className =
         "small-button danger";
-
 
       deleteButton.textContent =
         "削除";
@@ -4927,7 +4882,6 @@ function initializeApp() {
 initializeApp();
 
 </script>
-
 
 <script src="./pwa.js"></script>
 
