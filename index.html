@@ -16,7 +16,6 @@
   >
 
   <style>
-
     * {
       box-sizing: border-box;
     }
@@ -29,7 +28,6 @@
         "Helvetica Neue",
         Arial,
         sans-serif;
-
       background: #f5f5f7;
       color: #222;
     }
@@ -90,8 +88,7 @@
       width: 100%;
       padding: 13px 14px;
       font-size: 17px;
-      border:
-        1px solid #d8d8dd;
+      border: 1px solid #d8d8dd;
       border-radius: 10px;
       background: white;
       color: #222;
@@ -114,15 +111,13 @@
     .button.secondary {
       background: white;
       color: #007aff;
-      border:
-        1px solid #d7d7dc;
+      border: 1px solid #d7d7dc;
     }
 
     .button.danger {
       background: white;
       color: #d70015;
-      border:
-        1px solid #d7d7dc;
+      border: 1px solid #d7d7dc;
     }
 
     .small-button {
@@ -186,8 +181,7 @@
       align-items: center;
       gap: 12px;
       padding: 14px 0;
-      border-bottom:
-        1px solid #eee;
+      border-bottom: 1px solid #eee;
       font-size: 17px;
     }
 
@@ -200,8 +194,7 @@
       align-items: center;
       gap: 12px;
       padding: 13px 0;
-      border-bottom:
-        1px solid #eee;
+      border-bottom: 1px solid #eee;
       font-size: 17px;
     }
 
@@ -209,8 +202,7 @@
       border-bottom: none;
     }
 
-    .packing-item.checked
-    .item-text {
+    .packing-item.checked .item-text {
       color: #999;
       text-decoration: line-through;
     }
@@ -325,12 +317,10 @@
     .template-row {
       display: flex;
       align-items: center;
-      justify-content:
-        space-between;
+      justify-content: space-between;
       gap: 12px;
       padding: 14px 0;
-      border-bottom:
-        1px solid #eee;
+      border-bottom: 1px solid #eee;
     }
 
     .template-row:last-child {
@@ -346,12 +336,10 @@
     .editor-item {
       display: flex;
       align-items: center;
-      justify-content:
-        space-between;
+      justify-content: space-between;
       gap: 12px;
       padding: 12px 0;
-      border-bottom:
-        1px solid #eee;
+      border-bottom: 1px solid #eee;
     }
 
     .editor-item:last-child {
@@ -374,8 +362,7 @@
       min-width: 0;
       padding: 12px;
       font-size: 16px;
-      border:
-        1px solid #d8d8dd;
+      border: 1px solid #d8d8dd;
       border-radius: 10px;
     }
 
@@ -392,12 +379,10 @@
     .removed-row {
       display: flex;
       align-items: center;
-      justify-content:
-        space-between;
+      justify-content: space-between;
       gap: 12px;
       padding: 12px 0;
-      border-bottom:
-        1px solid #eee;
+      border-bottom: 1px solid #eee;
     }
 
     .removed-row:last-child {
@@ -407,8 +392,7 @@
     .removed-name {
       color: #777;
       font-size: 15px;
-      text-decoration:
-        line-through;
+      text-decoration: line-through;
     }
 
     .section-note {
@@ -453,7 +437,6 @@
     .file-input {
       display: none;
     }
-
   </style>
 </head>
 
@@ -464,9 +447,7 @@
   <!-- ホーム -->
   <section id="home">
 
-    <h1>
-      旅行持ち物メモ
-    </h1>
+    <h1>旅行持ち物メモ</h1>
 
     <div class="subtitle">
       旅行ごとに持ち物リストを作って保存できます。
@@ -487,7 +468,6 @@
     >
       テンプレートを編集
     </button>
-
 
     <div class="card backup-box">
 
@@ -550,6 +530,7 @@
     <div class="card">
 
       <div class="field">
+
         <label for="tripName">
           旅行名
         </label>
@@ -559,10 +540,11 @@
           type="text"
           placeholder="例：台湾 4泊5日"
         >
+
       </div>
 
-
       <div class="field">
+
         <label for="startDate">
           出発日
         </label>
@@ -571,10 +553,11 @@
           id="startDate"
           type="date"
         >
+
       </div>
 
-
       <div class="field">
+
         <label for="endDate">
           帰宅日
         </label>
@@ -583,87 +566,15 @@
           id="endDate"
           type="date"
         >
+
       </div>
 
     </div>
 
-
-    <div class="card">
-
-      <label class="option">
-        <input
-          type="checkbox"
-          class="trip-type"
-          value="basic"
-        >
-        <span>基本</span>
-      </label>
-
-      <label class="option">
-        <input
-          type="checkbox"
-          class="trip-type"
-          value="domestic"
-        >
-        <span>国内旅行</span>
-      </label>
-
-      <label class="option">
-        <input
-          type="checkbox"
-          class="trip-type"
-          value="overseas"
-        >
-        <span>海外旅行</span>
-      </label>
-
-      <label class="option">
-        <input
-          type="checkbox"
-          class="trip-type"
-          value="children"
-        >
-        <span>子連れ</span>
-      </label>
-
-      <label class="option">
-        <input
-          type="checkbox"
-          class="trip-type"
-          value="summer"
-        >
-        <span>夏</span>
-      </label>
-
-      <label class="option">
-        <input
-          type="checkbox"
-          class="trip-type"
-          value="winter"
-        >
-        <span>冬</span>
-      </label>
-
-      <label class="option">
-        <input
-          type="checkbox"
-          class="trip-type"
-          value="onsen"
-        >
-        <span>温泉</span>
-      </label>
-
-      <label class="option">
-        <input
-          type="checkbox"
-          class="trip-type"
-          value="pool"
-        >
-        <span>海・プール</span>
-      </label>
-
-    </div>
-
+    <div
+      id="tripTypeOptions"
+      class="card"
+    ></div>
 
     <button
       class="button"
@@ -709,7 +620,6 @@
 
     <div id="packingItems"></div>
 
-
     <div class="card">
 
       <h2>
@@ -725,7 +635,7 @@
         <input
           id="newTripItem"
           type="text"
-          placeholder="例：乗馬用手袋"
+          placeholder="例：旅行専用の持ち物"
         >
 
         <button
@@ -737,7 +647,6 @@
       </div>
 
     </div>
-
 
     <div
       id="removedItemsCard"
@@ -755,7 +664,6 @@
       <div id="removedItems"></div>
 
     </div>
-
 
     <button
       class="button secondary"
@@ -876,16 +784,149 @@ const TRIPS_STORAGE_KEY =
 const TEMPLATE_STORAGE_KEY =
   "travelPackingTemplates";
 
+const TEMPLATE_VERSION_KEY =
+  "travelPackingTemplateVersion";
+
+const CURRENT_TEMPLATE_VERSION =
+  "final-8-20260924";
+
 
 let currentTripId = null;
 let editingTripId = null;
 let currentTemplateKey = null;
 
 
+/*
+  今回確定した8テンプレート
+*/
+
 const defaultTemplates = {
 
   basic: {
     title: "基本",
+    items: [
+      "財布",
+      "スマートフォン",
+      "家の鍵",
+      "充電ケーブル・充電器",
+      "モバイルバッテリー",
+      "イヤホン",
+      "下着",
+      "靴下",
+      "着替え",
+      "パジャマ",
+      "歯ブラシ",
+      "常備薬",
+      "メガネ・コンタクト",
+      "マイナ保険証・資格確認書",
+      "ハンカチ・ティッシュ・手拭い",
+      "折りたたみ傘",
+      "スキンケア用品（化粧水など）",
+      "サブバッグ"
+    ]
+  },
+
+  overseas: {
+    title: "海外旅行",
+    items: [
+      "パスポート",
+      "クレジットカード",
+      "現金・外貨",
+      "航空券・搭乗情報",
+      "ホテル予約情報",
+      "海外旅行保険",
+      "eSIM・SIM",
+      "変換プラグ",
+      "ビザ・入国許可",
+      "パスポートのコピー",
+      "飛行機用ブランケット"
+    ]
+  },
+
+  children: {
+    title: "子連れ",
+    items: [
+      "子どもの着替え",
+      "子どもの下着",
+      "子どもの薬",
+      "お菓子",
+      "ウェットティッシュ",
+      "ゲーム",
+      "勉強道具"
+    ]
+  },
+
+  business: {
+    title: "ビジネス",
+    items: [
+      "仕事用PC",
+      "PC充電器",
+      "仕事用スマートフォン",
+      "名刺",
+      "筆記用具",
+      "ノート・メモ帳",
+      "必要な資料・書類",
+      "スーツ"
+    ]
+  },
+
+  other: {
+    title: "その他",
+    items: [
+      "ネックピロー",
+      "耳栓",
+      "エコバッグ"
+    ]
+  },
+
+  summer: {
+    title: "夏",
+    items: [
+      "帽子",
+      "日焼け止め",
+      "サングラス",
+      "UVカットの長袖",
+      "虫よけ",
+      "ムヒ",
+      "レインウェア"
+    ]
+  },
+
+  winter: {
+    title: "冬",
+    items: [
+      "防寒着",
+      "手袋",
+      "マフラー",
+      "ニット帽"
+    ]
+  },
+
+  pool: {
+    title: "海・プール",
+    items: [
+      "水着",
+      "ゴーグル",
+      "防水バッグ",
+      "ビーチサンダル",
+      "濡れ物用の袋",
+      "子ども用水着",
+      "子ども用ゴーグル",
+      "浮き輪"
+    ]
+  }
+
+};
+
+
+/*
+  旧版の初期テンプレート。
+  ユーザーが自分で追加した項目だけを判定するために使用。
+*/
+
+const legacyDefaultTemplates = {
+
+  basic: {
     items: [
       "財布",
       "iPhone",
@@ -899,7 +940,6 @@ const defaultTemplates = {
   },
 
   domestic: {
-    title: "国内旅行",
     items: [
       "健康保険証",
       "交通系ICカード"
@@ -907,7 +947,6 @@ const defaultTemplates = {
   },
 
   overseas: {
-    title: "海外旅行",
     items: [
       "パスポート",
       "クレジットカード",
@@ -918,7 +957,6 @@ const defaultTemplates = {
   },
 
   children: {
-    title: "子連れ",
     items: [
       "子どもの着替え",
       "子どもの保険証",
@@ -929,7 +967,6 @@ const defaultTemplates = {
   },
 
   summer: {
-    title: "夏",
     items: [
       "帽子",
       "日焼け止め",
@@ -938,7 +975,6 @@ const defaultTemplates = {
   },
 
   winter: {
-    title: "冬",
     items: [
       "防寒着",
       "手袋",
@@ -947,7 +983,6 @@ const defaultTemplates = {
   },
 
   onsen: {
-    title: "温泉",
     items: [
       "スキンケア用品",
       "替えの下着"
@@ -955,7 +990,6 @@ const defaultTemplates = {
   },
 
   pool: {
-    title: "海・プール",
     items: [
       "水着",
       "ゴーグル",
@@ -978,6 +1012,149 @@ function cloneDefaultTemplates() {
 }
 
 
+function upgradeTemplateData(
+  savedTemplates
+) {
+
+  const upgraded =
+    cloneDefaultTemplates();
+
+
+  if (
+    !savedTemplates ||
+    typeof savedTemplates !== "object"
+  ) {
+
+    return upgraded;
+
+  }
+
+
+  Object.keys(
+    upgraded
+  ).forEach(
+    function(key) {
+
+      const saved =
+        savedTemplates[key];
+
+      if (
+        !saved ||
+        !Array.isArray(
+          saved.items
+        )
+      ) {
+        return;
+      }
+
+
+      const oldBase =
+        legacyDefaultTemplates[key]
+        ?.items
+        || [];
+
+
+      const customItems =
+        saved.items.filter(
+          function(item) {
+
+            return (
+              !oldBase.includes(
+                item
+              )
+              &&
+              !upgraded[key]
+                .items
+                .includes(
+                  item
+                )
+            );
+
+          }
+        );
+
+
+      customItems.forEach(
+        function(item) {
+
+          upgraded[key]
+            .items
+            .push(
+              item
+            );
+
+        }
+      );
+
+    }
+  );
+
+
+  return upgraded;
+
+}
+
+
+function migrateTemplates() {
+
+  const currentVersion =
+    localStorage.getItem(
+      TEMPLATE_VERSION_KEY
+    );
+
+
+  if (
+    currentVersion ===
+    CURRENT_TEMPLATE_VERSION
+  ) {
+    return;
+  }
+
+
+  let savedTemplates =
+    null;
+
+
+  const saved =
+    localStorage.getItem(
+      TEMPLATE_STORAGE_KEY
+    );
+
+
+  if (saved) {
+
+    try {
+
+      savedTemplates =
+        JSON.parse(
+          saved
+        );
+
+    } catch {
+    }
+
+  }
+
+
+  const upgraded =
+    upgradeTemplateData(
+      savedTemplates
+    );
+
+
+  saveTemplates(
+    upgraded
+  );
+
+
+  localStorage.setItem(
+    TEMPLATE_VERSION_KEY,
+    CURRENT_TEMPLATE_VERSION
+  );
+
+}
+
+
 function getTemplates() {
 
   const saved =
@@ -985,9 +1162,13 @@ function getTemplates() {
       TEMPLATE_STORAGE_KEY
     );
 
+
   if (!saved) {
+
     return cloneDefaultTemplates();
+
   }
+
 
   try {
 
@@ -1066,9 +1247,11 @@ function getTrips() {
       TRIPS_STORAGE_KEY
     );
 
+
   if (!saved) {
     return [];
   }
+
 
   try {
 
@@ -1077,11 +1260,15 @@ function getTrips() {
         saved
       );
 
+
     if (
-      !Array.isArray(data)
+      !Array.isArray(
+        data
+      )
     ) {
       return [];
     }
+
 
     return data.map(
       normalizeTrip
@@ -1131,6 +1318,7 @@ function migrateOldTripData() {
   const trips =
     getTrips();
 
+
   if (
     trips.length > 0
   ) {
@@ -1143,6 +1331,7 @@ function migrateOldTripData() {
       OLD_TRIP_STORAGE_KEY
     );
 
+
   if (!oldData) {
     return;
   }
@@ -1154,6 +1343,7 @@ function migrateOldTripData() {
       JSON.parse(
         oldData
       );
+
 
     if (
       oldTrip &&
@@ -1173,9 +1363,11 @@ function migrateOldTripData() {
       oldTrip.removedItems =
         [];
 
+
       saveTrips([
         oldTrip
       ]);
+
 
       localStorage.removeItem(
         OLD_TRIP_STORAGE_KEY
@@ -1184,6 +1376,160 @@ function migrateOldTripData() {
     }
 
   } catch {
+  }
+
+}
+
+
+/*
+  古い旅行のテンプレート選択を
+  新8テンプレートへ移行
+*/
+
+function migrateTripTemplateSelections() {
+
+  const validKeys =
+    new Set(
+      Object.keys(
+        defaultTemplates
+      )
+    );
+
+
+  const trips =
+    getTrips();
+
+
+  let changed =
+    false;
+
+
+  trips.forEach(
+    function(trip) {
+
+      const migrated =
+        [];
+
+
+      trip.selectedTypes
+        .forEach(
+          function(type) {
+
+            /*
+              国内旅行は基本へ統合
+            */
+
+            if (
+              type === "domestic"
+            ) {
+
+              if (
+                !migrated.includes(
+                  "basic"
+                )
+              ) {
+
+                migrated.push(
+                  "basic"
+                );
+
+              }
+
+              changed =
+                true;
+
+              return;
+
+            }
+
+
+            /*
+              温泉は廃止
+            */
+
+            if (
+              type === "onsen"
+            ) {
+
+              changed =
+                true;
+
+              return;
+
+            }
+
+
+            if (
+              validKeys.has(
+                type
+              )
+              &&
+              !migrated.includes(
+                type
+              )
+            ) {
+
+              migrated.push(
+                type
+              );
+
+            } else if (
+              !validKeys.has(
+                type
+              )
+            ) {
+
+              changed =
+                true;
+
+            }
+
+          }
+        );
+
+
+      if (
+        migrated.length === 0
+      ) {
+
+        migrated.push(
+          "basic"
+        );
+
+        changed =
+          true;
+
+      }
+
+
+      if (
+        JSON.stringify(
+          migrated
+        )
+        !==
+        JSON.stringify(
+          trip.selectedTypes
+        )
+      ) {
+
+        trip.selectedTypes =
+          migrated;
+
+        changed =
+          true;
+
+      }
+
+    }
+  );
+
+
+  if (changed) {
+
+    saveTrips(
+      trips
+    );
+
   }
 
 }
@@ -1204,10 +1550,96 @@ function hideAllScreens() {
         .getElementById(
           id
         )
-        .classList
-        .add(
+        .classList.add(
           "hidden"
         );
+
+    }
+  );
+
+}
+
+
+function renderTripTypeOptions(
+  selectedTypes = []
+) {
+
+  const templates =
+    getTemplates();
+
+
+  const container =
+    document.getElementById(
+      "tripTypeOptions"
+    );
+
+
+  container.innerHTML =
+    "";
+
+
+  Object.keys(
+    templates
+  ).forEach(
+    function(key) {
+
+      const template =
+        templates[key];
+
+
+      const label =
+        document.createElement(
+          "label"
+        );
+
+
+      label.className =
+        "option";
+
+
+      const checkbox =
+        document.createElement(
+          "input"
+        );
+
+
+      checkbox.type =
+        "checkbox";
+
+      checkbox.className =
+        "trip-type";
+
+      checkbox.value =
+        key;
+
+      checkbox.checked =
+        selectedTypes.includes(
+          key
+        );
+
+
+      const text =
+        document.createElement(
+          "span"
+        );
+
+
+      text.textContent =
+        template.title;
+
+
+      label.appendChild(
+        checkbox
+      );
+
+      label.appendChild(
+        text
+      );
+
+
+      container.appendChild(
+        label
+      );
 
     }
   );
@@ -1223,16 +1655,17 @@ function showHome() {
   editingTripId =
     null;
 
+
   hideAllScreens();
 
   renderTripList();
+
 
   document
     .getElementById(
       "home"
     )
-    .classList
-    .remove(
+    .classList.remove(
       "hidden"
     );
 
@@ -1244,7 +1677,12 @@ function startNewTrip() {
   editingTripId =
     null;
 
+
   clearTripForm();
+
+  renderTripTypeOptions(
+    []
+  );
 
 
   document
@@ -1262,8 +1700,7 @@ function startNewTrip() {
     .getElementById(
       "createTrip"
     )
-    .classList
-    .remove(
+    .classList.remove(
       "hidden"
     );
 
@@ -1289,20 +1726,6 @@ function clearTripForm() {
       "endDate"
     )
     .value = "";
-
-
-  document
-    .querySelectorAll(
-      ".trip-type"
-    )
-    .forEach(
-      function(box) {
-
-        box.checked =
-          false;
-
-      }
-    );
 
 }
 
@@ -1336,10 +1759,9 @@ function saveTripFromForm() {
 
   const selectedTypes =
     Array.from(
-      document
-        .querySelectorAll(
-          ".trip-type:checked"
-        )
+      document.querySelectorAll(
+        ".trip-type:checked"
+      )
     )
     .map(
       function(box) {
@@ -1392,10 +1814,13 @@ function saveTripFromForm() {
   const trips =
     getTrips();
 
+
   let trip;
 
 
-  if (editingTripId) {
+  if (
+    editingTripId
+  ) {
 
     const index =
       trips.findIndex(
@@ -1504,8 +1929,10 @@ function getTodayString() {
   const now =
     new Date();
 
+
   const year =
     now.getFullYear();
+
 
   const month =
     String(
@@ -1514,6 +1941,7 @@ function getTodayString() {
       2,
       "0"
     );
+
 
   const day =
     String(
@@ -1543,10 +1971,12 @@ function getTripStatus(
     getTodayString();
 
   const start =
-    trip.startDate || "";
+    trip.startDate
+    || "";
 
   const end =
-    trip.endDate || "";
+    trip.endDate
+    || "";
 
 
   if (
@@ -1696,10 +2126,14 @@ function sortTripsForHome(
       function(a, b) {
 
         const aStatus =
-          getTripStatus(a);
+          getTripStatus(
+            a
+          );
 
         const bStatus =
-          getTripStatus(b);
+          getTripStatus(
+            b
+          );
 
 
         if (
@@ -1715,38 +2149,16 @@ function sortTripsForHome(
         }
 
 
-        /*
-          旅行中：
-          出発日が近いもの
-        */
-
-        if (
-          aStatus.type ===
-          "current"
-        ) {
-
-          return (
-            (a.startDate || "")
-            .localeCompare(
-              b.startDate || ""
-            )
-          );
-
-        }
-
-
-        /*
-          これから：
-          出発日の近い順
-        */
-
         if (
           aStatus.type ===
           "future"
         ) {
 
           return (
-            (a.startDate || "9999-99-99")
+            (
+              a.startDate ||
+              "9999-99-99"
+            )
             .localeCompare(
               b.startDate ||
               "9999-99-99"
@@ -1755,11 +2167,6 @@ function sortTripsForHome(
 
         }
 
-
-        /*
-          終了済み：
-          最近終わったものが上
-        */
 
         if (
           aStatus.type ===
@@ -1771,10 +2178,12 @@ function sortTripsForHome(
             a.startDate ||
             "";
 
+
           const bDate =
             b.endDate ||
             b.startDate ||
             "";
+
 
           return bDate
             .localeCompare(
@@ -1784,7 +2193,16 @@ function sortTripsForHome(
         }
 
 
-        return 0;
+        return (
+          (
+            a.startDate ||
+            ""
+          )
+          .localeCompare(
+            b.startDate ||
+            ""
+          )
+        );
 
       }
     );
@@ -1800,11 +2218,11 @@ function renderTripList() {
   const templates =
     getTemplates();
 
+
   const container =
-    document
-      .getElementById(
-        "tripList"
-      );
+    document.getElementById(
+      "tripList"
+    );
 
 
   container.innerHTML =
@@ -1816,20 +2234,23 @@ function renderTripList() {
   ) {
 
     const empty =
-      document
-        .createElement(
-          "div"
-        );
+      document.createElement(
+        "div"
+      );
+
 
     empty.className =
       "card empty-state";
 
+
     empty.textContent =
       "まだ旅行は登録されていません。";
+
 
     container.appendChild(
       empty
     );
+
 
     return;
 
@@ -1852,50 +2273,53 @@ function renderTripList() {
 
 
       const card =
-        document
-          .createElement(
-            "div"
-          );
+        document.createElement(
+          "div"
+        );
+
 
       card.className =
         "trip-card";
 
 
       const statusLabel =
-        document
-          .createElement(
-            "div"
-          );
+        document.createElement(
+          "div"
+        );
+
 
       statusLabel.className =
         "trip-status "
         + status.type;
+
 
       statusLabel.textContent =
         status.label;
 
 
       const title =
-        document
-          .createElement(
-            "div"
-          );
+        document.createElement(
+          "div"
+        );
+
 
       title.className =
         "trip-card-title";
+
 
       title.textContent =
         trip.tripName;
 
 
       const dates =
-        document
-          .createElement(
-            "div"
-          );
+        document.createElement(
+          "div"
+        );
+
 
       dates.className =
         "trip-card-dates";
+
 
       dates.textContent =
         formatDateRange(
@@ -1911,7 +2335,7 @@ function renderTripList() {
 
               return (
                 templates[type]
-                  ?.title
+                ?.title
               );
 
             }
@@ -1922,13 +2346,14 @@ function renderTripList() {
 
 
       const types =
-        document
-          .createElement(
-            "div"
-          );
+        document.createElement(
+          "div"
+        );
+
 
       types.className =
         "trip-card-types";
+
 
       types.textContent =
         typeNames.join(
@@ -1958,13 +2383,14 @@ function renderTripList() {
 
 
       const progress =
-        document
-          .createElement(
-            "div"
-          );
+        document.createElement(
+          "div"
+        );
+
 
       progress.className =
         "trip-card-progress";
+
 
       progress.textContent =
         checkedCount
@@ -1974,26 +2400,28 @@ function renderTripList() {
 
 
       const actions =
-        document
-          .createElement(
-            "div"
-          );
+        document.createElement(
+          "div"
+        );
+
 
       actions.className =
         "trip-actions";
 
 
       const openButton =
-        document
-          .createElement(
-            "button"
-          );
+        document.createElement(
+          "button"
+        );
+
 
       openButton.className =
         "small-button";
 
+
       openButton.textContent =
         "開く";
+
 
       openButton.onclick =
         function() {
@@ -2006,16 +2434,18 @@ function renderTripList() {
 
 
       const editButton =
-        document
-          .createElement(
-            "button"
-          );
+        document.createElement(
+          "button"
+        );
+
 
       editButton.className =
         "small-button";
 
+
       editButton.textContent =
         "編集";
+
 
       editButton.onclick =
         function() {
@@ -2028,16 +2458,18 @@ function renderTripList() {
 
 
       const deleteButton =
-        document
-          .createElement(
-            "button"
-          );
+        document.createElement(
+          "button"
+        );
+
 
       deleteButton.className =
         "small-button danger";
 
+
       deleteButton.textContent =
         "削除";
+
 
       deleteButton.onclick =
         function() {
@@ -2155,6 +2587,7 @@ function getTemplateItemsForTrip(
   const templates =
     getTemplates();
 
+
   const set =
     new Set();
 
@@ -2165,6 +2598,7 @@ function getTemplateItemsForTrip(
 
         const template =
           templates[type];
+
 
         if (!template) {
           return;
@@ -2297,6 +2731,49 @@ function openTrip(
 }
 
 
+function sortItemsByChecked(
+  items,
+  checkedItems
+) {
+
+  const checked =
+    new Set(
+      checkedItems
+      || []
+    );
+
+
+  return [...items]
+    .sort(
+      function(a, b) {
+
+        const aChecked =
+          checked.has(
+            a
+          )
+          ? 1
+          : 0;
+
+
+        const bChecked =
+          checked.has(
+            b
+          )
+          ? 1
+          : 0;
+
+
+        return (
+          aChecked -
+          bChecked
+        );
+
+      }
+    );
+
+}
+
+
 function renderPackingList(
   trip
 ) {
@@ -2312,10 +2789,9 @@ function renderPackingList(
 
 
   const packingItems =
-    document
-      .getElementById(
-        "packingItems"
-      );
+    document.getElementById(
+      "packingItems"
+    );
 
 
   packingItems.innerHTML =
@@ -2341,6 +2817,7 @@ function renderPackingList(
         const template =
           templates[type];
 
+
         if (!template) {
           return;
         }
@@ -2348,31 +2825,6 @@ function renderPackingList(
 
         selectedNames.push(
           template.title
-        );
-
-
-        const card =
-          document
-            .createElement(
-              "div"
-            );
-
-        card.className =
-          "card";
-
-
-        const heading =
-          document
-            .createElement(
-              "h2"
-            );
-
-        heading.textContent =
-          template.title;
-
-
-        card.appendChild(
-          heading
         );
 
 
@@ -2405,6 +2857,38 @@ function renderPackingList(
             );
 
 
+        if (
+          visibleItems.length === 0
+        ) {
+          return;
+        }
+
+
+        const card =
+          document.createElement(
+            "div"
+          );
+
+
+        card.className =
+          "card";
+
+
+        const heading =
+          document.createElement(
+            "h2"
+          );
+
+
+        heading.textContent =
+          template.title;
+
+
+        card.appendChild(
+          heading
+        );
+
+
         sortItemsByChecked(
           visibleItems,
           trip.checkedItems
@@ -2412,31 +2896,21 @@ function renderPackingList(
         .forEach(
           function(item) {
 
-            const row =
+            card.appendChild(
               createPackingRow(
                 trip,
                 item,
                 false
-              );
-
-
-            card.appendChild(
-              row
+              )
             );
 
           }
         );
 
 
-        if (
-          visibleItems.length > 0
-        ) {
-
-          packingItems.appendChild(
-            card
-          );
-
-        }
+        packingItems.appendChild(
+          card
+        );
 
       }
     );
@@ -2462,20 +2936,20 @@ function renderPackingList(
   ) {
 
     const extraCard =
-      document
-        .createElement(
-          "div"
-        );
+      document.createElement(
+        "div"
+      );
+
 
     extraCard.className =
       "card";
 
 
     const heading =
-      document
-        .createElement(
-          "h2"
-        );
+      document.createElement(
+        "h2"
+      );
+
 
     heading.textContent =
       "今回だけ";
@@ -2493,16 +2967,12 @@ function renderPackingList(
     .forEach(
       function(item) {
 
-        const row =
+        extraCard.appendChild(
           createPackingRow(
             trip,
             item,
             true
-          );
-
-
-        extraCard.appendChild(
-          row
+          )
         );
 
       }
@@ -2553,8 +3023,7 @@ function renderPackingList(
     .getElementById(
       "packingList"
     )
-    .classList
-    .remove(
+    .classList.remove(
       "hidden"
     );
 
@@ -2572,43 +3041,6 @@ function renderPackingList(
 
 
   updateProgress();
-
-}
-
-
-function sortItemsByChecked(
-  items,
-  checkedItems
-) {
-
-  const checked =
-    new Set(
-      checkedItems || []
-    );
-
-
-  return [...items]
-    .sort(
-      function(a, b) {
-
-        const aChecked =
-          checked.has(a)
-          ? 1
-          : 0;
-
-        const bChecked =
-          checked.has(b)
-          ? 1
-          : 0;
-
-
-        return (
-          aChecked -
-          bChecked
-        );
-
-      }
-    );
 
 }
 
@@ -2636,8 +3068,7 @@ function reorderPackingRows(
       const aChecked =
         a.querySelector(
           "input[type='checkbox']"
-        )
-        ?.checked
+        )?.checked
         ? 1
         : 0;
 
@@ -2645,8 +3076,7 @@ function reorderPackingRows(
       const bChecked =
         b.querySelector(
           "input[type='checkbox']"
-        )
-        ?.checked
+        )?.checked
         ? 1
         : 0;
 
@@ -2680,20 +3110,20 @@ function createPackingRow(
 ) {
 
   const row =
-    document
-      .createElement(
-        "div"
-      );
+    document.createElement(
+      "div"
+    );
+
 
   row.className =
     "packing-item";
 
 
   const checkbox =
-    document
-      .createElement(
-        "input"
-      );
+    document.createElement(
+      "input"
+    );
+
 
   checkbox.type =
     "checkbox";
@@ -2750,11 +3180,6 @@ function createPackingRow(
       updateProgress();
 
 
-      /*
-        チェック済みを
-        カテゴリーの一番下へ
-      */
-
       reorderPackingRows(
         row.parentElement
       );
@@ -2764,13 +3189,14 @@ function createPackingRow(
 
 
   const text =
-    document
-      .createElement(
-        "span"
-      );
+    document.createElement(
+      "span"
+    );
+
 
   text.className =
     "item-text";
+
 
   text.textContent =
     item;
@@ -2788,13 +3214,14 @@ function createPackingRow(
   if (isExtra) {
 
     const badge =
-      document
-        .createElement(
-          "span"
-        );
+      document.createElement(
+        "span"
+      );
+
 
     badge.className =
       "extra-badge";
+
 
     badge.textContent =
       "追加";
@@ -2808,10 +3235,9 @@ function createPackingRow(
 
 
   const removeButton =
-    document
-      .createElement(
-        "button"
-      );
+    document.createElement(
+      "button"
+    );
 
 
   removeButton.className =
@@ -2868,10 +3294,9 @@ function addTripItem() {
 
 
   const input =
-    document
-      .getElementById(
-        "newTripItem"
-      );
+    document.getElementById(
+      "newTripItem"
+    );
 
 
   const value =
@@ -2924,10 +3349,9 @@ function addTripItem() {
       value
     )
     ||
-    trip.extraItems
-      .includes(
-        value
-      );
+    trip.extraItems.includes(
+      value
+    );
 
 
   if (
@@ -2977,6 +3401,7 @@ function addTripItem() {
     alert(
       "同じ持ち物がすでにあります"
     );
+
 
     return;
 
@@ -3046,10 +3471,9 @@ function removeTripItem(
       )
   ) {
 
-    trip.removedItems
-      .push(
-        item
-      );
+    trip.removedItems.push(
+      item
+    );
 
   }
 
@@ -3057,13 +3481,11 @@ function removeTripItem(
   trip.checkedItems =
     trip.checkedItems
       .filter(
-        function(
-          checkedItem
-        ) {
+        function(checkedItem) {
 
           return (
-            checkedItem
-            !== item
+            checkedItem !==
+            item
           );
 
         }
@@ -3124,13 +3546,11 @@ function deleteExtraTripItem(
   trip.extraItems =
     trip.extraItems
       .filter(
-        function(
-          extraItem
-        ) {
+        function(extraItem) {
 
           return (
-            extraItem
-            !== item
+            extraItem !==
+            item
           );
 
         }
@@ -3140,13 +3560,11 @@ function deleteExtraTripItem(
   trip.checkedItems =
     trip.checkedItems
       .filter(
-        function(
-          checkedItem
-        ) {
+        function(checkedItem) {
 
           return (
-            checkedItem
-            !== item
+            checkedItem !==
+            item
           );
 
         }
@@ -3156,13 +3574,11 @@ function deleteExtraTripItem(
   trip.removedItems =
     trip.removedItems
       .filter(
-        function(
-          removedItem
-        ) {
+        function(removedItem) {
 
           return (
-            removedItem
-            !== item
+            removedItem !==
+            item
           );
 
         }
@@ -3190,17 +3606,15 @@ function renderRemovedItems(
 ) {
 
   const card =
-    document
-      .getElementById(
-        "removedItemsCard"
-      );
+    document.getElementById(
+      "removedItemsCard"
+    );
 
 
   const container =
-    document
-      .getElementById(
-        "removedItems"
-      );
+    document.getElementById(
+      "removedItems"
+    );
 
 
   container.innerHTML =
@@ -3234,36 +3648,38 @@ function renderRemovedItems(
     function(item) {
 
       const row =
-        document
-          .createElement(
-            "div"
-          );
+        document.createElement(
+          "div"
+        );
+
 
       row.className =
         "removed-row";
 
 
       const name =
-        document
-          .createElement(
-            "span"
-          );
+        document.createElement(
+          "span"
+        );
+
 
       name.className =
         "removed-name";
+
 
       name.textContent =
         item;
 
 
       const button =
-        document
-          .createElement(
-            "button"
-          );
+        document.createElement(
+          "button"
+        );
+
 
       button.className =
         "restore-button";
+
 
       button.textContent =
         "戻す";
@@ -3337,13 +3753,11 @@ function restoreTripItem(
   trip.removedItems =
     trip.removedItems
       .filter(
-        function(
-          removedItem
-        ) {
+        function(removedItem) {
 
           return (
-            removedItem
-            !== item
+            removedItem !==
+            item
           );
 
         }
@@ -3443,10 +3857,9 @@ function updateTripCheck(
 function updateProgress() {
 
   const checkboxes =
-    document
-      .querySelectorAll(
-        "#packingItems input[type='checkbox']"
-      );
+    document.querySelectorAll(
+      "#packingItems input[type='checkbox']"
+    );
 
 
   const total =
@@ -3590,7 +4003,8 @@ function editTrip(
       "tripName"
     )
     .value =
-    trip.tripName || "";
+    trip.tripName
+    || "";
 
 
   document
@@ -3598,7 +4012,8 @@ function editTrip(
       "startDate"
     )
     .value =
-    trip.startDate || "";
+    trip.startDate
+    || "";
 
 
   document
@@ -3606,24 +4021,13 @@ function editTrip(
       "endDate"
     )
     .value =
-    trip.endDate || "";
+    trip.endDate
+    || "";
 
 
-  document
-    .querySelectorAll(
-      ".trip-type"
-    )
-    .forEach(
-      function(box) {
-
-        box.checked =
-          trip.selectedTypes
-            .includes(
-              box.value
-            );
-
-      }
-    );
+  renderTripTypeOptions(
+    trip.selectedTypes
+  );
 
 
   hideAllScreens();
@@ -3633,8 +4037,7 @@ function editTrip(
     .getElementById(
       "createTrip"
     )
-    .classList
-    .remove(
+    .classList.remove(
       "hidden"
     );
 
@@ -3724,8 +4127,7 @@ function showTemplateList() {
     .getElementById(
       "templateList"
     )
-    .classList
-    .remove(
+    .classList.remove(
       "hidden"
     );
 
@@ -3739,10 +4141,9 @@ function renderTemplateList() {
 
 
   const container =
-    document
-      .getElementById(
-        "templateListContainer"
-      );
+    document.getElementById(
+      "templateListContainer"
+    );
 
 
   container.innerHTML =
@@ -3751,8 +4152,7 @@ function renderTemplateList() {
 
   Object.keys(
     templates
-  )
-  .forEach(
+  ).forEach(
     function(key) {
 
       const template =
@@ -3760,40 +4160,40 @@ function renderTemplateList() {
 
 
       const row =
-        document
-          .createElement(
-            "div"
-          );
+        document.createElement(
+          "div"
+        );
+
 
       row.className =
         "template-row";
 
 
       const info =
-        document
-          .createElement(
-            "div"
-          );
+        document.createElement(
+          "div"
+        );
 
 
       const title =
-        document
-          .createElement(
-            "h3"
-          );
+        document.createElement(
+          "h3"
+        );
+
 
       title.textContent =
         template.title;
 
 
       const count =
-        document
-          .createElement(
-            "div"
-          );
+        document.createElement(
+          "div"
+        );
+
 
       count.className =
         "template-count";
+
 
       count.textContent =
         template.items.length
@@ -3810,13 +4210,14 @@ function renderTemplateList() {
 
 
       const button =
-        document
-          .createElement(
-            "button"
-          );
+        document.createElement(
+          "button"
+        );
+
 
       button.className =
         "small-button";
+
 
       button.textContent =
         "編集";
@@ -3897,8 +4298,7 @@ function openTemplateEditor(
     .getElementById(
       "templateEditor"
     )
-    .classList
-    .remove(
+    .classList.remove(
       "hidden"
     );
 
@@ -3918,10 +4318,9 @@ function renderTemplateItems() {
 
 
   const container =
-    document
-      .getElementById(
-        "templateItems"
-      );
+    document.getElementById(
+      "templateItems"
+    );
 
 
   container.innerHTML =
@@ -3941,36 +4340,38 @@ function renderTemplateItems() {
       ) {
 
         const row =
-          document
-            .createElement(
-              "div"
-            );
+          document.createElement(
+            "div"
+          );
+
 
         row.className =
           "editor-item";
 
 
         const name =
-          document
-            .createElement(
-              "div"
-            );
+          document.createElement(
+            "div"
+          );
+
 
         name.className =
           "editor-item-name";
+
 
         name.textContent =
           item;
 
 
         const button =
-          document
-            .createElement(
-              "button"
-            );
+          document.createElement(
+            "button"
+          );
+
 
         button.className =
           "delete-button";
+
 
         button.textContent =
           "削除";
@@ -4008,10 +4409,9 @@ function renderTemplateItems() {
 function addTemplateItem() {
 
   const input =
-    document
-      .getElementById(
-        "newTemplateItem"
-      );
+    document.getElementById(
+      "newTemplateItem"
+    );
 
 
   const value =
@@ -4039,10 +4439,9 @@ function addTemplateItem() {
 
 
   if (
-    template.items
-      .includes(
-        value
-      )
+    template.items.includes(
+      value
+    )
   ) {
 
     alert(
@@ -4121,8 +4520,14 @@ function resetTemplates() {
   }
 
 
-  localStorage.removeItem(
-    TEMPLATE_STORAGE_KEY
+  saveTemplates(
+    cloneDefaultTemplates()
+  );
+
+
+  localStorage.setItem(
+    TEMPLATE_VERSION_KEY,
+    CURRENT_TEMPLATE_VERSION
   );
 
 
@@ -4144,11 +4549,14 @@ function exportBackup() {
       "travel-packing",
 
     version:
-      1,
+      2,
 
     exportedAt:
       new Date()
         .toISOString(),
+
+    templateVersion:
+      CURRENT_TEMPLATE_VERSION,
 
     trips:
       getTrips(),
@@ -4184,10 +4592,9 @@ function exportBackup() {
 
 
   const link =
-    document
-      .createElement(
-        "a"
-      );
+    document.createElement(
+      "a"
+    );
 
 
   const today =
@@ -4217,23 +4624,22 @@ function exportBackup() {
   link.href =
     url;
 
+
   link.download =
     filename;
 
 
-  document.body
-    .appendChild(
-      link
-    );
+  document.body.appendChild(
+    link
+  );
 
 
   link.click();
 
 
-  document.body
-    .removeChild(
-      link
-    );
+  document.body.removeChild(
+    link
+  );
 
 
   setTimeout(
@@ -4314,8 +4720,8 @@ function importBackup(
 
         if (
           !data.templates ||
-          typeof data.templates
-          !== "object"
+          typeof data.templates !==
+          "object"
         ) {
 
           throw new Error();
@@ -4347,8 +4753,19 @@ function importBackup(
 
 
         saveTemplates(
-          data.templates
+          upgradeTemplateData(
+            data.templates
+          )
         );
+
+
+        localStorage.setItem(
+          TEMPLATE_VERSION_KEY,
+          CURRENT_TEMPLATE_VERSION
+        );
+
+
+        migrateTripTemplateSelections();
 
 
         showHome();
@@ -4483,6 +4900,10 @@ function initializeApp() {
 
   migrateOldTripData();
 
+  migrateTemplates();
+
+  migrateTripTemplateSelections();
+
 
   const trips =
     getTrips();
@@ -4490,6 +4911,11 @@ function initializeApp() {
 
   saveTrips(
     trips
+  );
+
+
+  renderTripTypeOptions(
+    []
   );
 
 
