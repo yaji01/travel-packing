@@ -3,12 +3,22 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
   <title>旅行持ち物メモ</title>
 
   <style>
+    * {
+      box-sizing: border-box;
+    }
+
     body {
       margin: 0;
-      font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", sans-serif;
+      font-family:
+        -apple-system,
+        BlinkMacSystemFont,
+        "Helvetica Neue",
+        Arial,
+        sans-serif;
       background: #f5f5f7;
       color: #222;
     }
@@ -16,20 +26,22 @@
     .container {
       max-width: 600px;
       margin: 0 auto;
-      padding: 24px 16px;
+      padding: 24px 16px 40px;
     }
 
     h1 {
       font-size: 28px;
-      margin-bottom: 8px;
+      margin: 0 0 8px;
     }
 
     h2 {
       font-size: 20px;
+      margin: 0 0 12px;
     }
 
     .subtitle {
       color: #666;
+      line-height: 1.5;
       margin-bottom: 24px;
     }
 
@@ -44,13 +56,28 @@
     .button {
       display: block;
       width: 100%;
-      padding: 14px;
+      padding: 15px;
       border: none;
       border-radius: 12px;
       background: #007aff;
       color: white;
       font-size: 17px;
-      font-weight: bold;
+      font-weight: 600;
+      cursor: pointer;
+    }
+
+    .button:active {
+      opacity: 0.8;
+    }
+
+    .back {
+      border: none;
+      background: none;
+      color: #007aff;
+      font-size: 17px;
+      padding: 0;
+      margin-bottom: 18px;
+      cursor: pointer;
     }
 
     .option {
@@ -82,32 +109,37 @@
     input[type="checkbox"] {
       width: 22px;
       height: 22px;
+      flex-shrink: 0;
     }
 
     .hidden {
       display: none;
     }
 
-    .back {
-      border: none;
-      background: none;
-      color: #007aff;
-      font-size: 17px;
-      padding: 0;
+    .selected-summary {
       margin-bottom: 16px;
+      padding: 12px 14px;
+      border-radius: 12px;
+      background: #eaf3ff;
+      color: #245d9c;
+      font-size: 14px;
+      line-height: 1.5;
     }
   </style>
 </head>
 
 <body>
+
   <div class="container">
 
     <!-- ホーム -->
-    <div id="home">
+    <section id="home">
+
       <h1>旅行持ち物メモ</h1>
 
       <div class="subtitle">
-        旅行パターンを組み合わせて、持ち物リストを作ります
+        旅行パターンを組み合わせて、
+        自分用の持ち物リストを作ります。
       </div>
 
       <div class="card">
@@ -118,10 +150,12 @@
       <button class="button" onclick="showCreateTrip()">
         ＋ 新しい旅行を作る
       </button>
-    </div>
 
-    <!-- 旅行パターン選択 -->
-    <div id="createTrip" class="hidden">
+    </section>
+
+
+    <!-- パターン選択 -->
+    <section id="createTrip" class="hidden">
 
       <button class="back" onclick="showHome()">
         ← 戻る
@@ -130,84 +164,130 @@
       <h1>新しい旅行</h1>
 
       <div class="subtitle">
-        当てはまる旅行パターンを選んでください
+        当てはまる旅行パターンを複数選べます。
       </div>
 
       <div class="card">
 
         <label class="option">
-          <input type="checkbox" value="basic" class="trip-type">
-          基本
+          <input
+            type="checkbox"
+            class="trip-type"
+            value="basic"
+          >
+          <span>基本</span>
         </label>
 
         <label class="option">
-          <input type="checkbox" value="domestic" class="trip-type">
-          国内旅行
+          <input
+            type="checkbox"
+            class="trip-type"
+            value="domestic"
+          >
+          <span>国内旅行</span>
         </label>
 
         <label class="option">
-          <input type="checkbox" value="overseas" class="trip-type">
-          海外旅行
+          <input
+            type="checkbox"
+            class="trip-type"
+            value="overseas"
+          >
+          <span>海外旅行</span>
         </label>
 
         <label class="option">
-          <input type="checkbox" value="children" class="trip-type">
-          子連れ
+          <input
+            type="checkbox"
+            class="trip-type"
+            value="children"
+          >
+          <span>子連れ</span>
         </label>
 
         <label class="option">
-          <input type="checkbox" value="summer" class="trip-type">
-          夏
+          <input
+            type="checkbox"
+            class="trip-type"
+            value="summer"
+          >
+          <span>夏</span>
         </label>
 
         <label class="option">
-          <input type="checkbox" value="winter" class="trip-type">
-          冬
+          <input
+            type="checkbox"
+            class="trip-type"
+            value="winter"
+          >
+          <span>冬</span>
         </label>
 
         <label class="option">
-          <input type="checkbox" value="onsen" class="trip-type">
-          温泉
+          <input
+            type="checkbox"
+            class="trip-type"
+            value="onsen"
+          >
+          <span>温泉</span>
         </label>
 
         <label class="option">
-          <input type="checkbox" value="pool" class="trip-type">
-          海・プール
+          <input
+            type="checkbox"
+            class="trip-type"
+            value="pool"
+          >
+          <span>海・プール</span>
         </label>
 
       </div>
 
-      <button class="button" onclick="createPackingList()">
+      <button
+        class="button"
+        onclick="createPackingList()"
+      >
         チェックリストを作る
       </button>
 
-    </div>
+    </section>
+
 
     <!-- 持ち物リスト -->
-    <div id="packingList" class="hidden">
+    <section id="packingList" class="hidden">
 
-      <button class="back" onclick="showCreateTrip()">
+      <button
+        class="back"
+        onclick="showCreateTrip()"
+      >
         ← パターン選択に戻る
       </button>
 
       <h1>持ち物リスト</h1>
 
+      <div
+        id="selectedSummary"
+        class="selected-summary"
+      ></div>
+
       <div class="subtitle">
-        準備できたものにチェックを入れてください
+        準備できたものにチェックを入れてください。
       </div>
 
       <div id="packingItems"></div>
 
-    </div>
+    </section>
 
   </div>
+
 
   <script>
 
     const templates = {
 
       basic: {
-        "基本": [
+        title: "基本",
+        items: [
           "財布",
           "iPhone",
           "充電ケーブル",
@@ -220,14 +300,16 @@
       },
 
       domestic: {
-        "国内旅行": [
+        title: "国内旅行",
+        items: [
           "健康保険証",
           "交通系ICカード"
         ]
       },
 
       overseas: {
-        "海外旅行": [
+        title: "海外旅行",
+        items: [
           "パスポート",
           "クレジットカード",
           "海外旅行保険",
@@ -237,7 +319,8 @@
       },
 
       children: {
-        "子ども": [
+        title: "子連れ",
+        items: [
           "子どもの着替え",
           "子どもの保険証",
           "お菓子",
@@ -247,7 +330,8 @@
       },
 
       summer: {
-        "夏": [
+        title: "夏",
+        items: [
           "帽子",
           "日焼け止め",
           "サングラス"
@@ -255,7 +339,8 @@
       },
 
       winter: {
-        "冬": [
+        title: "冬",
+        items: [
           "防寒着",
           "手袋",
           "マフラー"
@@ -263,14 +348,16 @@
       },
 
       onsen: {
-        "温泉": [
+        title: "温泉",
+        items: [
           "スキンケア用品",
           "替えの下着"
         ]
       },
 
       pool: {
-        "海・プール": [
+        title: "海・プール",
+        items: [
           "水着",
           "ゴーグル",
           "タオル",
@@ -281,89 +368,10 @@
     };
 
 
-    function showCreateTrip() {
-      document.getElementById("home").classList.add("hidden");
-      document.getElementById("packingList").classList.add("hidden");
-      document.getElementById("createTrip").classList.remove("hidden");
-    }
-
-
-    function showHome() {
-      document.getElementById("createTrip").classList.add("hidden");
-      document.getElementById("packingList").classList.add("hidden");
-      document.getElementById("home").classList.remove("hidden");
-    }
-
-
-    function createPackingList() {
-
-      const selected =
-        document.querySelectorAll(".trip-type:checked");
-
-      if (selected.length === 0) {
-        alert("旅行パターンを1つ以上選んでください");
-        return;
-      }
-
-      const packingItems =
-        document.getElementById("packingItems");
-
-      packingItems.innerHTML = "";
-
-      const addedItems = new Set();
-
-      selected.forEach(option => {
-
-        const template = templates[option.value];
-
-        for (const category in template) {
-
-          const items = template[category];
-
-          const uniqueItems =
-            items.filter(item => !addedItems.has(item));
-
-          if (uniqueItems.length === 0) return;
-
-          const card = document.createElement("div");
-          card.className = "card";
-
-          const title = document.createElement("h2");
-          title.textContent = category;
-
-          card.appendChild(title);
-
-          uniqueItems.forEach(item => {
-
-            addedItems.add(item);
-
-            const label =
-              document.createElement("label");
-
-            label.className = "packing-item";
-
-            const checkbox =
-              document.createElement("input");
-
-            checkbox.type = "checkbox";
-
-            const text =
-              document.createElement("span");
-
-            text.textContent = item;
-
-            label.appendChild(checkbox);
-            label.appendChild(text);
-
-            card.appendChild(label);
-
-          });
-
-          packingItems.appendChild(card);
-
-        }
-
-      });
+    function hideAllScreens() {
+      document
+        .getElementById("home")
+        .classList.add("hidden");
 
       document
         .getElementById("createTrip")
@@ -371,6 +379,170 @@
 
       document
         .getElementById("packingList")
+        .classList.add("hidden");
+    }
+
+
+    function showHome() {
+      hideAllScreens();
+
+      document
+        .getElementById("home")
+        .classList.remove("hidden");
+    }
+
+
+    function showCreateTrip() {
+      hideAllScreens();
+
+      document
+        .getElementById("createTrip")
+        .classList.remove("hidden");
+    }
+
+
+    function createPackingList() {
+
+      const selected =
+        Array.from(
+          document.querySelectorAll(
+            ".trip-type:checked"
+          )
+        );
+
+      if (selected.length === 0) {
+        alert(
+          "旅行パターンを1つ以上選んでください"
+        );
+        return;
+      }
+
+      const packingItems =
+        document.getElementById(
+          "packingItems"
+        );
+
+      packingItems.innerHTML = "";
+
+      const selectedNames = [];
+      const alreadyAdded = new Set();
+
+
+      selected.forEach(function(option) {
+
+        const template =
+          templates[option.value];
+
+        if (!template) {
+          return;
+        }
+
+        selectedNames.push(
+          template.title
+        );
+
+
+        const card =
+          document.createElement("div");
+
+        card.className = "card";
+
+
+        const heading =
+          document.createElement("h2");
+
+        heading.textContent =
+          template.title;
+
+        card.appendChild(heading);
+
+
+        let addedToThisCard = 0;
+
+
+        template.items.forEach(
+          function(item) {
+
+            if (
+              alreadyAdded.has(item)
+            ) {
+              return;
+            }
+
+            alreadyAdded.add(item);
+
+            addedToThisCard++;
+
+
+            const label =
+              document.createElement(
+                "label"
+              );
+
+            label.className =
+              "packing-item";
+
+
+            const checkbox =
+              document.createElement(
+                "input"
+              );
+
+            checkbox.type =
+              "checkbox";
+
+
+            const text =
+              document.createElement(
+                "span"
+              );
+
+            text.textContent =
+              item;
+
+
+            label.appendChild(
+              checkbox
+            );
+
+            label.appendChild(
+              text
+            );
+
+            card.appendChild(
+              label
+            );
+
+          }
+        );
+
+
+        if (
+          addedToThisCard > 0
+        ) {
+          packingItems.appendChild(
+            card
+          );
+        }
+
+      });
+
+
+      document
+        .getElementById(
+          "selectedSummary"
+        )
+        .textContent =
+        "選択中："
+        + selectedNames.join(" ＋ ");
+
+
+      hideAllScreens();
+
+      document
+        .getElementById(
+          "packingList"
+        )
         .classList.remove("hidden");
 
     }
