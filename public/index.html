@@ -1,0 +1,4889 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
+
+  <title>旅行持ち物メモ</title>
+
+  <link
+    rel="apple-touch-icon"
+    href="./icon-180.png"
+  >
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family:
+        -apple-system,
+        BlinkMacSystemFont,
+        "Helvetica Neue",
+        Arial,
+        sans-serif;
+      background: #f5f5f7;
+      color: #222;
+    }
+
+    .container {
+      max-width: 600px;
+      margin: 0 auto;
+      padding: 24px 16px 40px;
+    }
+
+    h1 {
+      font-size: 28px;
+      margin: 0 0 8px;
+    }
+
+    h2 {
+      font-size: 20px;
+      margin: 0 0 12px;
+    }
+
+    h3 {
+      font-size: 17px;
+      margin: 0;
+    }
+
+    .subtitle {
+      color: #666;
+      line-height: 1.5;
+      margin-bottom: 24px;
+    }
+
+    .card {
+      background: white;
+      border-radius: 16px;
+      padding: 20px;
+      margin-bottom: 16px;
+      box-shadow:
+        0 2px 8px rgba(0,0,0,0.05);
+    }
+
+    .field {
+      margin-bottom: 18px;
+    }
+
+    .field:last-child {
+      margin-bottom: 0;
+    }
+
+    .field label {
+      display: block;
+      font-size: 14px;
+      color: #555;
+      margin-bottom: 7px;
+      font-weight: 600;
+    }
+
+    .field input {
+      width: 100%;
+      padding: 13px 14px;
+      font-size: 17px;
+      border: 1px solid #d8d8dd;
+      border-radius: 10px;
+      background: white;
+      color: #222;
+    }
+
+    .button {
+      display: block;
+      width: 100%;
+      padding: 15px;
+      border: none;
+      border-radius: 12px;
+      background: #007aff;
+      color: white;
+      font-size: 17px;
+      font-weight: 600;
+      cursor: pointer;
+      margin-top: 12px;
+    }
+
+    .button.secondary {
+      background: white;
+      color: #007aff;
+      border: 1px solid #d7d7dc;
+    }
+
+    .button.danger {
+      background: white;
+      color: #d70015;
+      border: 1px solid #d7d7dc;
+    }
+
+    .small-button {
+      border: none;
+      background: #eef5ff;
+      color: #007aff;
+      padding: 8px 11px;
+      border-radius: 9px;
+      font-size: 14px;
+      cursor: pointer;
+    }
+
+    .small-button.danger {
+      background: #fff0f1;
+      color: #d70015;
+    }
+
+    .remove-button {
+      border: none;
+      background: #f1f1f4;
+      color: #666;
+      padding: 7px 9px;
+      border-radius: 8px;
+      font-size: 12px;
+      cursor: pointer;
+      flex-shrink: 0;
+    }
+
+    .delete-button {
+      border: none;
+      background: #fff0f1;
+      color: #d70015;
+      padding: 7px 10px;
+      border-radius: 8px;
+      font-size: 13px;
+      cursor: pointer;
+    }
+
+    .restore-button {
+      border: none;
+      background: #eef5ff;
+      color: #007aff;
+      padding: 7px 10px;
+      border-radius: 8px;
+      font-size: 13px;
+      cursor: pointer;
+    }
+
+    .back {
+      border: none;
+      background: none;
+      color: #007aff;
+      font-size: 17px;
+      padding: 0;
+      margin-bottom: 18px;
+      cursor: pointer;
+    }
+
+    .option {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 14px 0;
+      border-bottom: 1px solid #eee;
+      font-size: 17px;
+    }
+
+    .option:last-child {
+      border-bottom: none;
+    }
+
+    .packing-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 13px 0;
+      border-bottom: 1px solid #eee;
+      font-size: 17px;
+    }
+
+    .packing-item:last-child {
+      border-bottom: none;
+    }
+
+    .packing-item.checked .item-text {
+      color: #999;
+      text-decoration: line-through;
+    }
+
+    .item-text {
+      flex: 1;
+      line-height: 1.4;
+    }
+
+    input[type="checkbox"] {
+      width: 22px;
+      height: 22px;
+      flex-shrink: 0;
+    }
+
+    .hidden {
+      display: none;
+    }
+
+    .selected-summary {
+      margin-bottom: 16px;
+      padding: 12px 14px;
+      border-radius: 12px;
+      background: #eaf3ff;
+      color: #245d9c;
+      font-size: 14px;
+      line-height: 1.5;
+    }
+
+    .progress {
+      margin-bottom: 18px;
+      font-size: 15px;
+      color: #666;
+    }
+
+    .progress strong {
+      color: #222;
+      font-size: 18px;
+    }
+
+    .trip-card {
+      background: white;
+      border-radius: 16px;
+      padding: 18px;
+      margin-bottom: 14px;
+      box-shadow:
+        0 2px 8px rgba(0,0,0,0.05);
+    }
+
+    .trip-card-title {
+      font-size: 20px;
+      font-weight: 700;
+      margin-bottom: 5px;
+    }
+
+    .trip-card-dates {
+      color: #666;
+      font-size: 14px;
+      margin-bottom: 8px;
+    }
+
+    .trip-card-types {
+      color: #777;
+      font-size: 13px;
+      line-height: 1.5;
+      margin-bottom: 10px;
+    }
+
+    .trip-card-progress {
+      font-size: 14px;
+      margin-bottom: 12px;
+    }
+
+    .trip-status {
+      display: inline-block;
+      font-size: 12px;
+      font-weight: 600;
+      padding: 4px 8px;
+      border-radius: 8px;
+      margin-bottom: 10px;
+    }
+
+    .trip-status.current {
+      background: #e8f8ee;
+      color: #258445;
+    }
+
+    .trip-status.future {
+      background: #eaf3ff;
+      color: #245d9c;
+    }
+
+    .trip-status.past {
+      background: #f1f1f4;
+      color: #777;
+    }
+
+    .trip-status.undated {
+      background: #fff5dc;
+      color: #8c6816;
+    }
+
+    .trip-actions {
+      display: flex;
+      gap: 8px;
+    }
+
+    .trip-actions button {
+      flex: 1;
+    }
+
+    .template-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 14px 0;
+      border-bottom: 1px solid #eee;
+    }
+
+    .template-row:last-child {
+      border-bottom: none;
+    }
+
+    .template-count {
+      font-size: 13px;
+      color: #777;
+      margin-top: 4px;
+    }
+
+    .editor-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 12px 0;
+      border-bottom: 1px solid #eee;
+    }
+
+    .editor-item:last-child {
+      border-bottom: none;
+    }
+
+    .editor-item-name {
+      font-size: 16px;
+      line-height: 1.4;
+    }
+
+    .add-row {
+      display: flex;
+      gap: 8px;
+      margin-top: 16px;
+    }
+
+    .add-row input {
+      flex: 1;
+      min-width: 0;
+      padding: 12px;
+      font-size: 16px;
+      border: 1px solid #d8d8dd;
+      border-radius: 10px;
+    }
+
+    .add-row button {
+      border: none;
+      border-radius: 10px;
+      background: #007aff;
+      color: white;
+      padding: 0 16px;
+      font-size: 16px;
+      font-weight: 600;
+    }
+
+    .removed-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 12px 0;
+      border-bottom: 1px solid #eee;
+    }
+
+    .removed-row:last-child {
+      border-bottom: none;
+    }
+
+    .removed-name {
+      color: #777;
+      font-size: 15px;
+      text-decoration: line-through;
+    }
+
+    .section-note {
+      font-size: 13px;
+      color: #777;
+      line-height: 1.5;
+      margin-bottom: 12px;
+    }
+
+    .empty-state {
+      color: #777;
+      text-align: center;
+      padding: 20px 0;
+    }
+
+    .extra-badge {
+      font-size: 11px;
+      color: #007aff;
+      background: #eef5ff;
+      padding: 3px 6px;
+      border-radius: 6px;
+      flex-shrink: 0;
+    }
+
+    .backup-box {
+      margin-top: 28px;
+    }
+
+    .backup-title {
+      font-size: 18px;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+
+    .backup-note {
+      color: #777;
+      font-size: 13px;
+      line-height: 1.5;
+      margin-bottom: 12px;
+    }
+
+    .file-input {
+      display: none;
+    }
+  </style>
+</head>
+
+<body>
+
+<div class="container">
+
+  <section id="home">
+
+    <h1>旅行持ち物メモ</h1>
+
+    <div class="subtitle">
+      旅行ごとに持ち物リストを作って保存できます。
+    </div>
+
+    <div id="tripList"></div>
+
+    <button
+      class="button"
+      onclick="startNewTrip()"
+    >
+      ＋ 新しい旅行を作る
+    </button>
+
+    <button
+      class="button secondary"
+      onclick="showTemplateList()"
+    >
+      テンプレートを編集
+    </button>
+
+    <div class="card backup-box">
+
+      <div class="backup-title">
+        バックアップ
+      </div>
+
+      <div class="backup-note">
+        旅行データとテンプレート設定をJSONファイルとして保存できます。
+      </div>
+
+      <button
+        class="button secondary"
+        onclick="exportBackup()"
+      >
+        バックアップを書き出す
+      </button>
+
+      <button
+        class="button secondary"
+        onclick="selectBackupFile()"
+      >
+        バックアップから復元
+      </button>
+
+      <input
+        id="backupFileInput"
+        class="file-input"
+        type="file"
+        accept=".json,application/json"
+        onchange="importBackup(event)"
+      >
+
+    </div>
+
+  </section>
+
+
+  <section
+    id="createTrip"
+    class="hidden"
+  >
+
+    <button
+      class="back"
+      onclick="showHome()"
+    >
+      ← 戻る
+    </button>
+
+    <h1 id="createTripTitle">
+      新しい旅行
+    </h1>
+
+    <div class="subtitle">
+      旅行情報と、当てはまる旅行パターンを選んでください。
+    </div>
+
+    <div class="card">
+
+      <div class="field">
+
+        <label for="tripName">
+          旅行名
+        </label>
+
+        <input
+          id="tripName"
+          type="text"
+          placeholder="例：台湾 4泊5日"
+        >
+
+      </div>
+
+      <div class="field">
+
+        <label for="startDate">
+          出発日
+        </label>
+
+        <input
+          id="startDate"
+          type="date"
+        >
+
+      </div>
+
+      <div class="field">
+
+        <label for="endDate">
+          帰宅日
+        </label>
+
+        <input
+          id="endDate"
+          type="date"
+        >
+
+      </div>
+
+    </div>
+
+    <div
+      id="tripTypeOptions"
+      class="card"
+    ></div>
+
+    <button
+      class="button"
+      onclick="saveTripFromForm()"
+    >
+      保存してチェックリストを開く
+    </button>
+
+  </section>
+
+
+  <section
+    id="packingList"
+    class="hidden"
+  >
+
+    <button
+      class="back"
+      onclick="showHome()"
+    >
+      ← 旅行一覧
+    </button>
+
+    <h1 id="packingTripName">
+      持ち物リスト
+    </h1>
+
+    <div
+      id="packingTripDates"
+      class="subtitle"
+    ></div>
+
+    <div
+      id="selectedSummary"
+      class="selected-summary"
+    ></div>
+
+    <div
+      id="progress"
+      class="progress"
+    ></div>
+
+    <div id="packingItems"></div>
+
+    <div class="card">
+
+      <h2>
+        今回だけ追加
+      </h2>
+
+      <div class="section-note">
+        この旅行だけに必要な持ち物を追加できます。
+      </div>
+
+      <div class="add-row">
+
+        <input
+          id="newTripItem"
+          type="text"
+          placeholder="例：旅行専用の持ち物"
+        >
+
+        <button onclick="addTripItem()">
+          追加
+        </button>
+
+      </div>
+
+    </div>
+
+    <div
+      id="removedItemsCard"
+      class="card hidden"
+    >
+
+      <h2>
+        外した持ち物
+      </h2>
+
+      <div class="section-note">
+        この旅行だけリストから外した項目です。
+      </div>
+
+      <div id="removedItems"></div>
+
+    </div>
+
+    <button
+      class="button secondary"
+      onclick="editCurrentTrip()"
+    >
+      旅行情報を編集
+    </button>
+
+    <button
+      class="button secondary"
+      onclick="clearAllChecks()"
+    >
+      チェックを全部外す
+    </button>
+
+    <button
+      class="button danger"
+      onclick="deleteCurrentTrip()"
+    >
+      この旅行を削除する
+    </button>
+
+  </section>
+
+
+  <section
+    id="templateList"
+    class="hidden"
+  >
+
+    <button
+      class="back"
+      onclick="showHome()"
+    >
+      ← 戻る
+    </button>
+
+    <h1>
+      テンプレート編集
+    </h1>
+
+    <div class="subtitle">
+      各旅行パターンの持ち物を自分用に変更できます。
+    </div>
+
+    <div
+      id="templateListContainer"
+      class="card"
+    ></div>
+
+    <button
+      class="button danger"
+      onclick="resetTemplates()"
+    >
+      テンプレートを初期状態に戻す
+    </button>
+
+  </section>
+
+
+  <section
+    id="templateEditor"
+    class="hidden"
+  >
+
+    <button
+      class="back"
+      onclick="showTemplateList()"
+    >
+      ← テンプレート一覧
+    </button>
+
+    <h1 id="templateEditorTitle">
+      テンプレート編集
+    </h1>
+
+    <div class="subtitle">
+      項目の追加・削除ができます。
+    </div>
+
+    <div class="card">
+
+      <div id="templateItems"></div>
+
+      <div class="add-row">
+
+        <input
+          id="newTemplateItem"
+          type="text"
+          placeholder="持ち物を追加"
+        >
+
+        <button onclick="addTemplateItem()">
+          追加
+        </button>
+
+      </div>
+
+    </div>
+
+  </section>
+
+</div>
+
+
+<script>
+
+const OLD_TRIP_STORAGE_KEY =
+  "travelPackingData";
+
+const TRIPS_STORAGE_KEY =
+  "travelPackingTrips";
+
+const TEMPLATE_STORAGE_KEY =
+  "travelPackingTemplates";
+
+const TEMPLATE_VERSION_KEY =
+  "travelPackingTemplateVersion";
+
+/*
+  前回からバージョンを変更。
+  「その他」にプロテインを追加するため。
+*/
+const CURRENT_TEMPLATE_VERSION =
+  "final-8-protein-20260924";
+
+
+let currentTripId = null;
+let editingTripId = null;
+let currentTemplateKey = null;
+
+
+/*
+  確定した8テンプレート
+*/
+
+const defaultTemplates = {
+
+  basic: {
+    title: "基本",
+    items: [
+      "財布",
+      "スマートフォン",
+      "家の鍵",
+      "充電ケーブル・充電器",
+      "モバイルバッテリー",
+      "イヤホン",
+      "下着",
+      "靴下",
+      "着替え",
+      "パジャマ",
+      "歯ブラシ",
+      "常備薬",
+      "メガネ・コンタクト",
+      "マイナ保険証・資格確認書",
+      "ハンカチ・ティッシュ・手拭い",
+      "折りたたみ傘",
+      "スキンケア用品（化粧水など）",
+      "サブバッグ"
+    ]
+  },
+
+  overseas: {
+    title: "海外旅行",
+    items: [
+      "パスポート",
+      "クレジットカード",
+      "現金・外貨",
+      "航空券・搭乗情報",
+      "ホテル予約情報",
+      "海外旅行保険",
+      "eSIM・SIM",
+      "変換プラグ",
+      "ビザ・入国許可",
+      "パスポートのコピー",
+      "飛行機用ブランケット"
+    ]
+  },
+
+  children: {
+    title: "子連れ",
+    items: [
+      "子どもの着替え",
+      "子どもの下着",
+      "子どもの薬",
+      "お菓子",
+      "ウェットティッシュ",
+      "ゲーム",
+      "勉強道具"
+    ]
+  },
+
+  business: {
+    title: "ビジネス",
+    items: [
+      "仕事用PC",
+      "PC充電器",
+      "仕事用スマートフォン",
+      "名刺",
+      "筆記用具",
+      "ノート・メモ帳",
+      "必要な資料・書類",
+      "スーツ"
+    ]
+  },
+
+  other: {
+    title: "その他",
+    items: [
+      "ネックピロー",
+      "耳栓",
+      "エコバッグ",
+      "プロテイン"
+    ]
+  },
+
+  summer: {
+    title: "夏",
+    items: [
+      "帽子",
+      "日焼け止め",
+      "サングラス",
+      "UVカットの長袖",
+      "虫よけ",
+      "ムヒ",
+      "レインウェア"
+    ]
+  },
+
+  winter: {
+    title: "冬",
+    items: [
+      "防寒着",
+      "手袋",
+      "マフラー",
+      "ニット帽"
+    ]
+  },
+
+  pool: {
+    title: "海・プール",
+    items: [
+      "水着",
+      "ゴーグル",
+      "防水バッグ",
+      "ビーチサンダル",
+      "濡れ物用の袋",
+      "子ども用水着",
+      "子ども用ゴーグル",
+      "浮き輪"
+    ]
+  }
+
+};
+
+
+/*
+  旧版の初期テンプレート
+*/
+
+const legacyDefaultTemplates = {
+
+  basic: {
+    items: [
+      "財布",
+      "iPhone",
+      "充電ケーブル",
+      "モバイルバッテリー",
+      "下着",
+      "靴下",
+      "歯ブラシ",
+      "常備薬"
+    ]
+  },
+
+  domestic: {
+    items: [
+      "健康保険証",
+      "交通系ICカード"
+    ]
+  },
+
+  overseas: {
+    items: [
+      "パスポート",
+      "クレジットカード",
+      "海外旅行保険",
+      "eSIM",
+      "変換プラグ"
+    ]
+  },
+
+  children: {
+    items: [
+      "子どもの着替え",
+      "子どもの保険証",
+      "お菓子",
+      "おもちゃ",
+      "ウェットティッシュ"
+    ]
+  },
+
+  summer: {
+    items: [
+      "帽子",
+      "日焼け止め",
+      "サングラス"
+    ]
+  },
+
+  winter: {
+    items: [
+      "防寒着",
+      "手袋",
+      "マフラー"
+    ]
+  },
+
+  onsen: {
+    items: [
+      "スキンケア用品",
+      "替えの下着"
+    ]
+  },
+
+  pool: {
+    items: [
+      "水着",
+      "ゴーグル",
+      "タオル",
+      "防水バッグ"
+    ]
+  }
+
+};
+
+
+function cloneDefaultTemplates() {
+
+  return JSON.parse(
+    JSON.stringify(
+      defaultTemplates
+    )
+  );
+
+}
+
+
+function upgradeTemplateData(
+  savedTemplates
+) {
+
+  const upgraded =
+    cloneDefaultTemplates();
+
+
+  if (
+    !savedTemplates ||
+    typeof savedTemplates !== "object"
+  ) {
+    return upgraded;
+  }
+
+
+  Object.keys(
+    upgraded
+  ).forEach(
+    function(key) {
+
+      const saved =
+        savedTemplates[key];
+
+
+      if (
+        !saved ||
+        !Array.isArray(
+          saved.items
+        )
+      ) {
+        return;
+      }
+
+
+      const oldBase =
+        legacyDefaultTemplates[key]
+        ?.items
+        || [];
+
+
+      const customItems =
+        saved.items.filter(
+          function(item) {
+
+            return (
+              !oldBase.includes(
+                item
+              )
+              &&
+              !upgraded[key]
+                .items
+                .includes(
+                  item
+                )
+            );
+
+          }
+        );
+
+
+      customItems.forEach(
+        function(item) {
+
+          upgraded[key]
+            .items
+            .push(
+              item
+            );
+
+        }
+      );
+
+    }
+  );
+
+
+  return upgraded;
+
+}
+
+
+function migrateTemplates() {
+
+  const currentVersion =
+    localStorage.getItem(
+      TEMPLATE_VERSION_KEY
+    );
+
+
+  if (
+    currentVersion ===
+    CURRENT_TEMPLATE_VERSION
+  ) {
+    return;
+  }
+
+
+  let savedTemplates =
+    null;
+
+
+  const saved =
+    localStorage.getItem(
+      TEMPLATE_STORAGE_KEY
+    );
+
+
+  if (saved) {
+
+    try {
+
+      savedTemplates =
+        JSON.parse(
+          saved
+        );
+
+    } catch {
+    }
+
+  }
+
+
+  const upgraded =
+    upgradeTemplateData(
+      savedTemplates
+    );
+
+
+  saveTemplates(
+    upgraded
+  );
+
+
+  localStorage.setItem(
+    TEMPLATE_VERSION_KEY,
+    CURRENT_TEMPLATE_VERSION
+  );
+
+}
+
+
+function getTemplates() {
+
+  const saved =
+    localStorage.getItem(
+      TEMPLATE_STORAGE_KEY
+    );
+
+
+  if (!saved) {
+    return cloneDefaultTemplates();
+  }
+
+
+  try {
+
+    return JSON.parse(
+      saved
+    );
+
+  } catch {
+
+    return cloneDefaultTemplates();
+
+  }
+
+}
+
+
+function saveTemplates(
+  templates
+) {
+
+  localStorage.setItem(
+    TEMPLATE_STORAGE_KEY,
+    JSON.stringify(
+      templates
+    )
+  );
+
+}
+
+
+function normalizeTrip(
+  trip
+) {
+
+  return {
+
+    ...trip,
+
+    selectedTypes:
+      Array.isArray(
+        trip.selectedTypes
+      )
+      ? trip.selectedTypes
+      : [],
+
+    checkedItems:
+      Array.isArray(
+        trip.checkedItems
+      )
+      ? trip.checkedItems
+      : [],
+
+    extraItems:
+      Array.isArray(
+        trip.extraItems
+      )
+      ? trip.extraItems
+      : [],
+
+    removedItems:
+      Array.isArray(
+        trip.removedItems
+      )
+      ? trip.removedItems
+      : []
+
+  };
+
+}
+
+
+function getTrips() {
+
+  const saved =
+    localStorage.getItem(
+      TRIPS_STORAGE_KEY
+    );
+
+
+  if (!saved) {
+    return [];
+  }
+
+
+  try {
+
+    const data =
+      JSON.parse(
+        saved
+      );
+
+
+    if (
+      !Array.isArray(
+        data
+      )
+    ) {
+      return [];
+    }
+
+
+    return data.map(
+      normalizeTrip
+    );
+
+  } catch {
+
+    return [];
+
+  }
+
+}
+
+
+function saveTrips(
+  trips
+) {
+
+  localStorage.setItem(
+    TRIPS_STORAGE_KEY,
+    JSON.stringify(
+      trips.map(
+        normalizeTrip
+      )
+    )
+  );
+
+}
+
+
+function generateTripId() {
+
+  return (
+    "trip_"
+    + Date.now()
+    + "_"
+    + Math.random()
+      .toString(36)
+      .slice(2, 8)
+  );
+
+}
+
+
+function migrateOldTripData() {
+
+  const trips =
+    getTrips();
+
+
+  if (
+    trips.length > 0
+  ) {
+    return;
+  }
+
+
+  const oldData =
+    localStorage.getItem(
+      OLD_TRIP_STORAGE_KEY
+    );
+
+
+  if (!oldData) {
+    return;
+  }
+
+
+  try {
+
+    const oldTrip =
+      JSON.parse(
+        oldData
+      );
+
+
+    if (
+      oldTrip &&
+      oldTrip.selectedTypes
+    ) {
+
+      oldTrip.id =
+        generateTripId();
+
+      oldTrip.checkedItems =
+        oldTrip.checkedItems
+        || [];
+
+      oldTrip.extraItems =
+        [];
+
+      oldTrip.removedItems =
+        [];
+
+
+      saveTrips([
+        oldTrip
+      ]);
+
+
+      localStorage.removeItem(
+        OLD_TRIP_STORAGE_KEY
+      );
+
+    }
+
+  } catch {
+  }
+
+}
+
+
+function migrateTripTemplateSelections() {
+
+  const validKeys =
+    new Set(
+      Object.keys(
+        defaultTemplates
+      )
+    );
+
+
+  const trips =
+    getTrips();
+
+
+  let changed =
+    false;
+
+
+  trips.forEach(
+    function(trip) {
+
+      const migrated =
+        [];
+
+
+      trip.selectedTypes
+        .forEach(
+          function(type) {
+
+            /*
+              国内旅行は基本へ統合
+            */
+
+            if (
+              type === "domestic"
+            ) {
+
+              if (
+                !migrated.includes(
+                  "basic"
+                )
+              ) {
+
+                migrated.push(
+                  "basic"
+                );
+
+              }
+
+              changed =
+                true;
+
+              return;
+
+            }
+
+
+            /*
+              温泉は廃止
+            */
+
+            if (
+              type === "onsen"
+            ) {
+
+              changed =
+                true;
+
+              return;
+
+            }
+
+
+            if (
+              validKeys.has(
+                type
+              )
+              &&
+              !migrated.includes(
+                type
+              )
+            ) {
+
+              migrated.push(
+                type
+              );
+
+            } else if (
+              !validKeys.has(
+                type
+              )
+            ) {
+
+              changed =
+                true;
+
+            }
+
+          }
+        );
+
+
+      if (
+        migrated.length === 0
+      ) {
+
+        migrated.push(
+          "basic"
+        );
+
+        changed =
+          true;
+
+      }
+
+
+      if (
+        JSON.stringify(
+          migrated
+        )
+        !==
+        JSON.stringify(
+          trip.selectedTypes
+        )
+      ) {
+
+        trip.selectedTypes =
+          migrated;
+
+        changed =
+          true;
+
+      }
+
+    }
+  );
+
+
+  if (changed) {
+
+    saveTrips(
+      trips
+    );
+
+  }
+
+}
+
+
+function hideAllScreens() {
+
+  [
+    "home",
+    "createTrip",
+    "packingList",
+    "templateList",
+    "templateEditor"
+  ].forEach(
+    function(id) {
+
+      document
+        .getElementById(
+          id
+        )
+        .classList.add(
+          "hidden"
+        );
+
+    }
+  );
+
+}
+
+
+function renderTripTypeOptions(
+  selectedTypes = []
+) {
+
+  const templates =
+    getTemplates();
+
+
+  const container =
+    document.getElementById(
+      "tripTypeOptions"
+    );
+
+
+  container.innerHTML =
+    "";
+
+
+  Object.keys(
+    templates
+  ).forEach(
+    function(key) {
+
+      const template =
+        templates[key];
+
+
+      const label =
+        document.createElement(
+          "label"
+        );
+
+
+      label.className =
+        "option";
+
+
+      const checkbox =
+        document.createElement(
+          "input"
+        );
+
+
+      checkbox.type =
+        "checkbox";
+
+      checkbox.className =
+        "trip-type";
+
+      checkbox.value =
+        key;
+
+      checkbox.checked =
+        selectedTypes.includes(
+          key
+        );
+
+
+      const text =
+        document.createElement(
+          "span"
+        );
+
+
+      text.textContent =
+        template.title;
+
+
+      label.appendChild(
+        checkbox
+      );
+
+      label.appendChild(
+        text
+      );
+
+
+      container.appendChild(
+        label
+      );
+
+    }
+  );
+
+}
+
+
+function showHome() {
+
+  currentTripId =
+    null;
+
+  editingTripId =
+    null;
+
+
+  hideAllScreens();
+
+  renderTripList();
+
+
+  document
+    .getElementById(
+      "home"
+    )
+    .classList.remove(
+      "hidden"
+    );
+
+}
+
+
+function startNewTrip() {
+
+  editingTripId =
+    null;
+
+
+  clearTripForm();
+
+  renderTripTypeOptions(
+    []
+  );
+
+
+  document
+    .getElementById(
+      "createTripTitle"
+    )
+    .textContent =
+    "新しい旅行";
+
+
+  hideAllScreens();
+
+
+  document
+    .getElementById(
+      "createTrip"
+    )
+    .classList.remove(
+      "hidden"
+    );
+
+}
+
+
+function clearTripForm() {
+
+  document
+    .getElementById(
+      "tripName"
+    )
+    .value = "";
+
+  document
+    .getElementById(
+      "startDate"
+    )
+    .value = "";
+
+  document
+    .getElementById(
+      "endDate"
+    )
+    .value = "";
+
+}
+
+
+function saveTripFromForm() {
+
+  const tripName =
+    document
+      .getElementById(
+        "tripName"
+      )
+      .value
+      .trim();
+
+
+  const startDate =
+    document
+      .getElementById(
+        "startDate"
+      )
+      .value;
+
+
+  const endDate =
+    document
+      .getElementById(
+        "endDate"
+      )
+      .value;
+
+
+  const selectedTypes =
+    Array.from(
+      document.querySelectorAll(
+        ".trip-type:checked"
+      )
+    )
+    .map(
+      function(box) {
+        return box.value;
+      }
+    );
+
+
+  if (!tripName) {
+
+    alert(
+      "旅行名を入力してください"
+    );
+
+    return;
+
+  }
+
+
+  if (
+    selectedTypes.length === 0
+  ) {
+
+    alert(
+      "旅行パターンを1つ以上選んでください"
+    );
+
+    return;
+
+  }
+
+
+  if (
+    startDate &&
+    endDate &&
+    endDate < startDate
+  ) {
+
+    alert(
+      "帰宅日は出発日以降にしてください"
+    );
+
+    return;
+
+  }
+
+
+  const trips =
+    getTrips();
+
+
+  let trip;
+
+
+  if (
+    editingTripId
+  ) {
+
+    const index =
+      trips.findIndex(
+        function(item) {
+
+          return (
+            item.id ===
+            editingTripId
+          );
+
+        }
+      );
+
+
+    if (
+      index === -1
+    ) {
+
+      alert(
+        "旅行データが見つかりません"
+      );
+
+      return;
+
+    }
+
+
+    trip =
+      normalizeTrip(
+        trips[index]
+      );
+
+
+    trip.tripName =
+      tripName;
+
+    trip.startDate =
+      startDate;
+
+    trip.endDate =
+      endDate;
+
+    trip.selectedTypes =
+      selectedTypes;
+
+
+    trips[index] =
+      trip;
+
+  } else {
+
+    trip = {
+
+      id:
+        generateTripId(),
+
+      tripName:
+        tripName,
+
+      startDate:
+        startDate,
+
+      endDate:
+        endDate,
+
+      selectedTypes:
+        selectedTypes,
+
+      checkedItems:
+        [],
+
+      extraItems:
+        [],
+
+      removedItems:
+        []
+
+    };
+
+
+    trips.push(
+      trip
+    );
+
+  }
+
+
+  saveTrips(
+    trips
+  );
+
+
+  editingTripId =
+    null;
+
+
+  openTrip(
+    trip.id
+  );
+
+}
+
+
+function getTodayString() {
+
+  const now =
+    new Date();
+
+
+  const year =
+    now.getFullYear();
+
+
+  const month =
+    String(
+      now.getMonth() + 1
+    ).padStart(
+      2,
+      "0"
+    );
+
+
+  const day =
+    String(
+      now.getDate()
+    ).padStart(
+      2,
+      "0"
+    );
+
+
+  return (
+    year
+    + "-"
+    + month
+    + "-"
+    + day
+  );
+
+}
+
+
+function getTripStatus(
+  trip
+) {
+
+  const today =
+    getTodayString();
+
+  const start =
+    trip.startDate
+    || "";
+
+  const end =
+    trip.endDate
+    || "";
+
+
+  if (
+    start &&
+    end
+  ) {
+
+    if (
+      start <= today &&
+      today <= end
+    ) {
+
+      return {
+        type: "current",
+        label: "旅行中",
+        rank: 0
+      };
+
+    }
+
+
+    if (
+      start > today
+    ) {
+
+      return {
+        type: "future",
+        label: "予定",
+        rank: 1
+      };
+
+    }
+
+
+    return {
+      type: "past",
+      label: "終了",
+      rank: 3
+    };
+
+  }
+
+
+  if (start) {
+
+    if (
+      start > today
+    ) {
+
+      return {
+        type: "future",
+        label: "予定",
+        rank: 1
+      };
+
+    }
+
+
+    if (
+      start === today
+    ) {
+
+      return {
+        type: "current",
+        label: "旅行中",
+        rank: 0
+      };
+
+    }
+
+
+    return {
+      type: "past",
+      label: "終了",
+      rank: 3
+    };
+
+  }
+
+
+  if (end) {
+
+    if (
+      end >= today
+    ) {
+
+      return {
+        type: "current",
+        label: "旅行中",
+        rank: 0
+      };
+
+    }
+
+
+    return {
+      type: "past",
+      label: "終了",
+      rank: 3
+    };
+
+  }
+
+
+  return {
+    type: "undated",
+    label: "日程未定",
+    rank: 2
+  };
+
+}
+
+
+function sortTripsForHome(
+  trips
+) {
+
+  return [...trips]
+    .sort(
+      function(a, b) {
+
+        const aStatus =
+          getTripStatus(
+            a
+          );
+
+        const bStatus =
+          getTripStatus(
+            b
+          );
+
+
+        if (
+          aStatus.rank !==
+          bStatus.rank
+        ) {
+
+          return (
+            aStatus.rank -
+            bStatus.rank
+          );
+
+        }
+
+
+        if (
+          aStatus.type ===
+          "future"
+        ) {
+
+          return (
+            (
+              a.startDate ||
+              "9999-99-99"
+            )
+            .localeCompare(
+              b.startDate ||
+              "9999-99-99"
+            )
+          );
+
+        }
+
+
+        if (
+          aStatus.type ===
+          "past"
+        ) {
+
+          const aDate =
+            a.endDate ||
+            a.startDate ||
+            "";
+
+
+          const bDate =
+            b.endDate ||
+            b.startDate ||
+            "";
+
+
+          return bDate
+            .localeCompare(
+              aDate
+            );
+
+        }
+
+
+        return (
+          (
+            a.startDate ||
+            ""
+          )
+          .localeCompare(
+            b.startDate ||
+            ""
+          )
+        );
+
+      }
+    );
+
+}
+
+
+function renderTripList() {
+
+  const trips =
+    getTrips();
+
+  const templates =
+    getTemplates();
+
+
+  const container =
+    document.getElementById(
+      "tripList"
+    );
+
+
+  container.innerHTML =
+    "";
+
+
+  if (
+    trips.length === 0
+  ) {
+
+    const empty =
+      document.createElement(
+        "div"
+      );
+
+
+    empty.className =
+      "card empty-state";
+
+
+    empty.textContent =
+      "まだ旅行は登録されていません。";
+
+
+    container.appendChild(
+      empty
+    );
+
+
+    return;
+
+  }
+
+
+  const sortedTrips =
+    sortTripsForHome(
+      trips
+    );
+
+
+  sortedTrips.forEach(
+    function(trip) {
+
+      const status =
+        getTripStatus(
+          trip
+        );
+
+
+      const card =
+        document.createElement(
+          "div"
+        );
+
+
+      card.className =
+        "trip-card";
+
+
+      const statusLabel =
+        document.createElement(
+          "div"
+        );
+
+
+      statusLabel.className =
+        "trip-status "
+        + status.type;
+
+
+      statusLabel.textContent =
+        status.label;
+
+
+      const title =
+        document.createElement(
+          "div"
+        );
+
+
+      title.className =
+        "trip-card-title";
+
+
+      title.textContent =
+        trip.tripName;
+
+
+      const dates =
+        document.createElement(
+          "div"
+        );
+
+
+      dates.className =
+        "trip-card-dates";
+
+
+      dates.textContent =
+        formatDateRange(
+          trip.startDate,
+          trip.endDate
+        );
+
+
+      const typeNames =
+        trip.selectedTypes
+          .map(
+            function(type) {
+
+              return (
+                templates[type]
+                ?.title
+              );
+
+            }
+          )
+          .filter(
+            Boolean
+          );
+
+
+      const types =
+        document.createElement(
+          "div"
+        );
+
+
+      types.className =
+        "trip-card-types";
+
+
+      types.textContent =
+        typeNames.join(
+          " ＋ "
+        );
+
+
+      const allItems =
+        getVisibleTripItems(
+          trip
+        );
+
+
+      const checkedCount =
+        allItems.filter(
+          function(item) {
+
+            return (
+              trip.checkedItems
+              || []
+            ).includes(
+              item
+            );
+
+          }
+        ).length;
+
+
+      const progress =
+        document.createElement(
+          "div"
+        );
+
+
+      progress.className =
+        "trip-card-progress";
+
+
+      progress.textContent =
+        checkedCount
+        + " / "
+        + allItems.length
+        + " 準備済み";
+
+
+      const actions =
+        document.createElement(
+          "div"
+        );
+
+
+      actions.className =
+        "trip-actions";
+
+
+      const openButton =
+        document.createElement(
+          "button"
+        );
+
+
+      openButton.className =
+        "small-button";
+
+      openButton.textContent =
+        "開く";
+
+
+      openButton.onclick =
+        function() {
+
+          openTrip(
+            trip.id
+          );
+
+        };
+
+
+      const editButton =
+        document.createElement(
+          "button"
+        );
+
+
+      editButton.className =
+        "small-button";
+
+      editButton.textContent =
+        "編集";
+
+
+      editButton.onclick =
+        function() {
+
+          editTrip(
+            trip.id
+          );
+
+        };
+
+
+      const deleteButton =
+        document.createElement(
+          "button"
+        );
+
+
+      deleteButton.className =
+        "small-button danger";
+
+      deleteButton.textContent =
+        "削除";
+
+
+      deleteButton.onclick =
+        function() {
+
+          deleteTripFromHome(
+            trip.id,
+            trip.tripName
+          );
+
+        };
+
+
+      actions.appendChild(
+        openButton
+      );
+
+      actions.appendChild(
+        editButton
+      );
+
+      actions.appendChild(
+        deleteButton
+      );
+
+
+      card.appendChild(
+        statusLabel
+      );
+
+      card.appendChild(
+        title
+      );
+
+
+      if (
+        dates.textContent
+      ) {
+
+        card.appendChild(
+          dates
+        );
+
+      }
+
+
+      card.appendChild(
+        types
+      );
+
+      card.appendChild(
+        progress
+      );
+
+      card.appendChild(
+        actions
+      );
+
+
+      container.appendChild(
+        card
+      );
+
+    }
+  );
+
+}
+
+
+function deleteTripFromHome(
+  tripId,
+  tripName
+) {
+
+  const ok =
+    confirm(
+      "「"
+      + tripName
+      + "」を削除しますか？"
+    );
+
+
+  if (!ok) {
+    return;
+  }
+
+
+  const trips =
+    getTrips()
+      .filter(
+        function(trip) {
+
+          return (
+            trip.id !==
+            tripId
+          );
+
+        }
+      );
+
+
+  saveTrips(
+    trips
+  );
+
+
+  renderTripList();
+
+}
+
+
+function getTemplateItemsForTrip(
+  trip
+) {
+
+  const templates =
+    getTemplates();
+
+
+  const set =
+    new Set();
+
+
+  trip.selectedTypes
+    .forEach(
+      function(type) {
+
+        const template =
+          templates[type];
+
+
+        if (!template) {
+          return;
+        }
+
+
+        template.items
+          .forEach(
+            function(item) {
+
+              set.add(
+                item
+              );
+
+            }
+          );
+
+      }
+    );
+
+
+  return Array.from(
+    set
+  );
+
+}
+
+
+function getVisibleTripItems(
+  trip
+) {
+
+  const removed =
+    new Set(
+      trip.removedItems
+      || []
+    );
+
+
+  const baseItems =
+    getTemplateItemsForTrip(
+      trip
+    )
+    .filter(
+      function(item) {
+
+        return !removed.has(
+          item
+        );
+
+      }
+    );
+
+
+  const all =
+    new Set(
+      baseItems
+    );
+
+
+  (
+    trip.extraItems
+    || []
+  ).forEach(
+    function(item) {
+
+      if (
+        !removed.has(
+          item
+        )
+      ) {
+
+        all.add(
+          item
+        );
+
+      }
+
+    }
+  );
+
+
+  return Array.from(
+    all
+  );
+
+}
+
+
+function openTrip(
+  tripId
+) {
+
+  const trips =
+    getTrips();
+
+
+  const trip =
+    trips.find(
+      function(item) {
+
+        return (
+          item.id ===
+          tripId
+        );
+
+      }
+    );
+
+
+  if (!trip) {
+
+    alert(
+      "旅行データが見つかりません"
+    );
+
+    return;
+
+  }
+
+
+  currentTripId =
+    tripId;
+
+
+  renderPackingList(
+    trip
+  );
+
+}
+
+
+function sortItemsByChecked(
+  items,
+  checkedItems
+) {
+
+  const checked =
+    new Set(
+      checkedItems
+      || []
+    );
+
+
+  return [...items]
+    .sort(
+      function(a, b) {
+
+        const aChecked =
+          checked.has(
+            a
+          )
+          ? 1
+          : 0;
+
+
+        const bChecked =
+          checked.has(
+            b
+          )
+          ? 1
+          : 0;
+
+
+        return (
+          aChecked -
+          bChecked
+        );
+
+      }
+    );
+
+}
+
+
+function renderPackingList(
+  trip
+) {
+
+  trip =
+    normalizeTrip(
+      trip
+    );
+
+
+  const templates =
+    getTemplates();
+
+
+  const packingItems =
+    document.getElementById(
+      "packingItems"
+    );
+
+
+  packingItems.innerHTML =
+    "";
+
+
+  const selectedNames =
+    [];
+
+  const alreadyAdded =
+    new Set();
+
+  const removed =
+    new Set(
+      trip.removedItems
+    );
+
+
+  trip.selectedTypes
+    .forEach(
+      function(type) {
+
+        const template =
+          templates[type];
+
+
+        if (!template) {
+          return;
+        }
+
+
+        selectedNames.push(
+          template.title
+        );
+
+
+        const visibleItems =
+          template.items
+            .filter(
+              function(item) {
+
+                if (
+                  alreadyAdded.has(
+                    item
+                  )
+                ) {
+                  return false;
+                }
+
+
+                alreadyAdded.add(
+                  item
+                );
+
+
+                return (
+                  !removed.has(
+                    item
+                  )
+                );
+
+              }
+            );
+
+
+        if (
+          visibleItems.length === 0
+        ) {
+          return;
+        }
+
+
+        const card =
+          document.createElement(
+            "div"
+          );
+
+
+        card.className =
+          "card";
+
+
+        const heading =
+          document.createElement(
+            "h2"
+          );
+
+
+        heading.textContent =
+          template.title;
+
+
+        card.appendChild(
+          heading
+        );
+
+
+        sortItemsByChecked(
+          visibleItems,
+          trip.checkedItems
+        )
+        .forEach(
+          function(item) {
+
+            card.appendChild(
+              createPackingRow(
+                trip,
+                item,
+                false
+              )
+            );
+
+          }
+        );
+
+
+        packingItems.appendChild(
+          card
+        );
+
+      }
+    );
+
+
+  const visibleExtraItems =
+    trip.extraItems
+      .filter(
+        function(item) {
+
+          return (
+            !removed.has(
+              item
+            )
+          );
+
+        }
+      );
+
+
+  if (
+    visibleExtraItems.length > 0
+  ) {
+
+    const extraCard =
+      document.createElement(
+        "div"
+      );
+
+
+    extraCard.className =
+      "card";
+
+
+    const heading =
+      document.createElement(
+        "h2"
+      );
+
+
+    heading.textContent =
+      "今回だけ";
+
+
+    extraCard.appendChild(
+      heading
+    );
+
+
+    sortItemsByChecked(
+      visibleExtraItems,
+      trip.checkedItems
+    )
+    .forEach(
+      function(item) {
+
+        extraCard.appendChild(
+          createPackingRow(
+            trip,
+            item,
+            true
+          )
+        );
+
+      }
+    );
+
+
+    packingItems.appendChild(
+      extraCard
+    );
+
+  }
+
+
+  document
+    .getElementById(
+      "packingTripName"
+    )
+    .textContent =
+    trip.tripName;
+
+
+  document
+    .getElementById(
+      "packingTripDates"
+    )
+    .textContent =
+    formatDateRange(
+      trip.startDate,
+      trip.endDate
+    );
+
+
+  document
+    .getElementById(
+      "selectedSummary"
+    )
+    .textContent =
+    "選択中："
+    + selectedNames.join(
+      " ＋ "
+    );
+
+
+  hideAllScreens();
+
+
+  document
+    .getElementById(
+      "packingList"
+    )
+    .classList.remove(
+      "hidden"
+    );
+
+
+  renderRemovedItems(
+    trip
+  );
+
+
+  document
+    .getElementById(
+      "newTripItem"
+    )
+    .value = "";
+
+
+  updateProgress();
+
+}
+
+
+function reorderPackingRows(
+  card
+) {
+
+  if (!card) {
+    return;
+  }
+
+
+  const rows =
+    Array.from(
+      card.querySelectorAll(
+        ".packing-item"
+      )
+    );
+
+
+  rows.sort(
+    function(a, b) {
+
+      const aChecked =
+        a.querySelector(
+          "input[type='checkbox']"
+        )?.checked
+        ? 1
+        : 0;
+
+
+      const bChecked =
+        b.querySelector(
+          "input[type='checkbox']"
+        )?.checked
+        ? 1
+        : 0;
+
+
+      return (
+        aChecked -
+        bChecked
+      );
+
+    }
+  );
+
+
+  rows.forEach(
+    function(row) {
+
+      card.appendChild(
+        row
+      );
+
+    }
+  );
+
+}
+
+
+function createPackingRow(
+  trip,
+  item,
+  isExtra
+) {
+
+  const row =
+    document.createElement(
+      "div"
+    );
+
+
+  row.className =
+    "packing-item";
+
+
+  const checkbox =
+    document.createElement(
+      "input"
+    );
+
+
+  checkbox.type =
+    "checkbox";
+
+
+  checkbox.checked =
+    (
+      trip.checkedItems
+      || []
+    ).includes(
+      item
+    );
+
+
+  if (
+    checkbox.checked
+  ) {
+
+    row.classList.add(
+      "checked"
+    );
+
+  }
+
+
+  checkbox.addEventListener(
+    "change",
+    function() {
+
+      updateTripCheck(
+        trip.id,
+        item,
+        checkbox.checked
+      );
+
+
+      if (
+        checkbox.checked
+      ) {
+
+        row.classList.add(
+          "checked"
+        );
+
+      } else {
+
+        row.classList.remove(
+          "checked"
+        );
+
+      }
+
+
+      updateProgress();
+
+
+      reorderPackingRows(
+        row.parentElement
+      );
+
+    }
+  );
+
+
+  const text =
+    document.createElement(
+      "span"
+    );
+
+
+  text.className =
+    "item-text";
+
+
+  text.textContent =
+    item;
+
+
+  row.appendChild(
+    checkbox
+  );
+
+  row.appendChild(
+    text
+  );
+
+
+  if (isExtra) {
+
+    const badge =
+      document.createElement(
+        "span"
+      );
+
+
+    badge.className =
+      "extra-badge";
+
+
+    badge.textContent =
+      "追加";
+
+
+    row.appendChild(
+      badge
+    );
+
+  }
+
+
+  const removeButton =
+    document.createElement(
+      "button"
+    );
+
+
+  removeButton.className =
+    isExtra
+      ? "delete-button"
+      : "remove-button";
+
+
+  removeButton.textContent =
+    isExtra
+      ? "削除"
+      : "外す";
+
+
+  removeButton.onclick =
+    function() {
+
+      if (isExtra) {
+
+        deleteExtraTripItem(
+          trip.id,
+          item
+        );
+
+      } else {
+
+        removeTripItem(
+          trip.id,
+          item
+        );
+
+      }
+
+    };
+
+
+  row.appendChild(
+    removeButton
+  );
+
+
+  return row;
+
+}
+
+
+function addTripItem() {
+
+  if (
+    !currentTripId
+  ) {
+    return;
+  }
+
+
+  const input =
+    document.getElementById(
+      "newTripItem"
+    );
+
+
+  const value =
+    input.value.trim();
+
+
+  if (!value) {
+    return;
+  }
+
+
+  const trips =
+    getTrips();
+
+
+  const index =
+    trips.findIndex(
+      function(trip) {
+
+        return (
+          trip.id ===
+          currentTripId
+        );
+
+      }
+    );
+
+
+  if (
+    index === -1
+  ) {
+    return;
+  }
+
+
+  const trip =
+    normalizeTrip(
+      trips[index]
+    );
+
+
+  const templateItems =
+    getTemplateItemsForTrip(
+      trip
+    );
+
+
+  const alreadyExists =
+    templateItems.includes(
+      value
+    )
+    ||
+    trip.extraItems.includes(
+      value
+    );
+
+
+  if (
+    alreadyExists
+  ) {
+
+    if (
+      trip.removedItems
+        .includes(
+          value
+        )
+    ) {
+
+      trip.removedItems =
+        trip.removedItems
+          .filter(
+            function(item) {
+
+              return (
+                item !==
+                value
+              );
+
+            }
+          );
+
+
+      trips[index] =
+        trip;
+
+
+      saveTrips(
+        trips
+      );
+
+
+      renderPackingList(
+        trip
+      );
+
+
+      return;
+
+    }
+
+
+    alert(
+      "同じ持ち物がすでにあります"
+    );
+
+
+    return;
+
+  }
+
+
+  trip.extraItems.push(
+    value
+  );
+
+
+  trips[index] =
+    trip;
+
+
+  saveTrips(
+    trips
+  );
+
+
+  renderPackingList(
+    trip
+  );
+
+}
+
+
+function removeTripItem(
+  tripId,
+  item
+) {
+
+  const trips =
+    getTrips();
+
+
+  const index =
+    trips.findIndex(
+      function(trip) {
+
+        return (
+          trip.id ===
+          tripId
+        );
+
+      }
+    );
+
+
+  if (
+    index === -1
+  ) {
+    return;
+  }
+
+
+  const trip =
+    normalizeTrip(
+      trips[index]
+    );
+
+
+  if (
+    !trip.removedItems
+      .includes(
+        item
+      )
+  ) {
+
+    trip.removedItems.push(
+      item
+    );
+
+  }
+
+
+  trip.checkedItems =
+    trip.checkedItems
+      .filter(
+        function(checkedItem) {
+
+          return (
+            checkedItem !==
+            item
+          );
+
+        }
+      );
+
+
+  trips[index] =
+    trip;
+
+
+  saveTrips(
+    trips
+  );
+
+
+  renderPackingList(
+    trip
+  );
+
+}
+
+
+function deleteExtraTripItem(
+  tripId,
+  item
+) {
+
+  const trips =
+    getTrips();
+
+
+  const index =
+    trips.findIndex(
+      function(trip) {
+
+        return (
+          trip.id ===
+          tripId
+        );
+
+      }
+    );
+
+
+  if (
+    index === -1
+  ) {
+    return;
+  }
+
+
+  const trip =
+    normalizeTrip(
+      trips[index]
+    );
+
+
+  trip.extraItems =
+    trip.extraItems
+      .filter(
+        function(extraItem) {
+
+          return (
+            extraItem !==
+            item
+          );
+
+        }
+      );
+
+
+  trip.checkedItems =
+    trip.checkedItems
+      .filter(
+        function(checkedItem) {
+
+          return (
+            checkedItem !==
+            item
+          );
+
+        }
+      );
+
+
+  trip.removedItems =
+    trip.removedItems
+      .filter(
+        function(removedItem) {
+
+          return (
+            removedItem !==
+            item
+          );
+
+        }
+      );
+
+
+  trips[index] =
+    trip;
+
+
+  saveTrips(
+    trips
+  );
+
+
+  renderPackingList(
+    trip
+  );
+
+}
+
+
+function renderRemovedItems(
+  trip
+) {
+
+  const card =
+    document.getElementById(
+      "removedItemsCard"
+    );
+
+
+  const container =
+    document.getElementById(
+      "removedItems"
+    );
+
+
+  container.innerHTML =
+    "";
+
+
+  const removed =
+    trip.removedItems
+    || [];
+
+
+  if (
+    removed.length === 0
+  ) {
+
+    card.classList.add(
+      "hidden"
+    );
+
+    return;
+
+  }
+
+
+  card.classList.remove(
+    "hidden"
+  );
+
+
+  removed.forEach(
+    function(item) {
+
+      const row =
+        document.createElement(
+          "div"
+        );
+
+
+      row.className =
+        "removed-row";
+
+
+      const name =
+        document.createElement(
+          "span"
+        );
+
+
+      name.className =
+        "removed-name";
+
+
+      name.textContent =
+        item;
+
+
+      const button =
+        document.createElement(
+          "button"
+        );
+
+
+      button.className =
+        "restore-button";
+
+
+      button.textContent =
+        "戻す";
+
+
+      button.onclick =
+        function() {
+
+          restoreTripItem(
+            trip.id,
+            item
+          );
+
+        };
+
+
+      row.appendChild(
+        name
+      );
+
+      row.appendChild(
+        button
+      );
+
+
+      container.appendChild(
+        row
+      );
+
+    }
+  );
+
+}
+
+
+function restoreTripItem(
+  tripId,
+  item
+) {
+
+  const trips =
+    getTrips();
+
+
+  const index =
+    trips.findIndex(
+      function(trip) {
+
+        return (
+          trip.id ===
+          tripId
+        );
+
+      }
+    );
+
+
+  if (
+    index === -1
+  ) {
+    return;
+  }
+
+
+  const trip =
+    normalizeTrip(
+      trips[index]
+    );
+
+
+  trip.removedItems =
+    trip.removedItems
+      .filter(
+        function(removedItem) {
+
+          return (
+            removedItem !==
+            item
+          );
+
+        }
+      );
+
+
+  trips[index] =
+    trip;
+
+
+  saveTrips(
+    trips
+  );
+
+
+  renderPackingList(
+    trip
+  );
+
+}
+
+
+function updateTripCheck(
+  tripId,
+  item,
+  checked
+) {
+
+  const trips =
+    getTrips();
+
+
+  const index =
+    trips.findIndex(
+      function(trip) {
+
+        return (
+          trip.id ===
+          tripId
+        );
+
+      }
+    );
+
+
+  if (
+    index === -1
+  ) {
+    return;
+  }
+
+
+  const trip =
+    normalizeTrip(
+      trips[index]
+    );
+
+
+  const set =
+    new Set(
+      trip.checkedItems
+    );
+
+
+  if (checked) {
+
+    set.add(
+      item
+    );
+
+  } else {
+
+    set.delete(
+      item
+    );
+
+  }
+
+
+  trip.checkedItems =
+    Array.from(
+      set
+    );
+
+
+  trips[index] =
+    trip;
+
+
+  saveTrips(
+    trips
+  );
+
+}
+
+
+function updateProgress() {
+
+  const checkboxes =
+    document.querySelectorAll(
+      "#packingItems input[type='checkbox']"
+    );
+
+
+  const total =
+    checkboxes.length;
+
+
+  const checked =
+    Array.from(
+      checkboxes
+    )
+    .filter(
+      function(box) {
+
+        return box.checked;
+
+      }
+    )
+    .length;
+
+
+  document
+    .getElementById(
+      "progress"
+    )
+    .innerHTML =
+    "<strong>"
+    + checked
+    + " / "
+    + total
+    + "</strong> 準備済み";
+
+}
+
+
+function clearAllChecks() {
+
+  if (
+    !currentTripId
+  ) {
+    return;
+  }
+
+
+  const trips =
+    getTrips();
+
+
+  const index =
+    trips.findIndex(
+      function(trip) {
+
+        return (
+          trip.id ===
+          currentTripId
+        );
+
+      }
+    );
+
+
+  if (
+    index === -1
+  ) {
+    return;
+  }
+
+
+  trips[index]
+    .checkedItems =
+    [];
+
+
+  saveTrips(
+    trips
+  );
+
+
+  renderPackingList(
+    trips[index]
+  );
+
+}
+
+
+function editCurrentTrip() {
+
+  if (
+    !currentTripId
+  ) {
+    return;
+  }
+
+
+  editTrip(
+    currentTripId
+  );
+
+}
+
+
+function editTrip(
+  tripId
+) {
+
+  const trips =
+    getTrips();
+
+
+  const trip =
+    trips.find(
+      function(item) {
+
+        return (
+          item.id ===
+          tripId
+        );
+
+      }
+    );
+
+
+  if (!trip) {
+    return;
+  }
+
+
+  editingTripId =
+    tripId;
+
+
+  document
+    .getElementById(
+      "createTripTitle"
+    )
+    .textContent =
+    "旅行を編集";
+
+
+  document
+    .getElementById(
+      "tripName"
+    )
+    .value =
+    trip.tripName
+    || "";
+
+
+  document
+    .getElementById(
+      "startDate"
+    )
+    .value =
+    trip.startDate
+    || "";
+
+
+  document
+    .getElementById(
+      "endDate"
+    )
+    .value =
+    trip.endDate
+    || "";
+
+
+  renderTripTypeOptions(
+    trip.selectedTypes
+  );
+
+
+  hideAllScreens();
+
+
+  document
+    .getElementById(
+      "createTrip"
+    )
+    .classList.remove(
+      "hidden"
+    );
+
+}
+
+
+function deleteCurrentTrip() {
+
+  if (
+    !currentTripId
+  ) {
+    return;
+  }
+
+
+  const trips =
+    getTrips();
+
+
+  const trip =
+    trips.find(
+      function(item) {
+
+        return (
+          item.id ===
+          currentTripId
+        );
+
+      }
+    );
+
+
+  const name =
+    trip
+    ? trip.tripName
+    : "この旅行";
+
+
+  const ok =
+    confirm(
+      "「"
+      + name
+      + "」を削除しますか？"
+    );
+
+
+  if (!ok) {
+    return;
+  }
+
+
+  const newTrips =
+    trips.filter(
+      function(trip) {
+
+        return (
+          trip.id !==
+          currentTripId
+        );
+
+      }
+    );
+
+
+  saveTrips(
+    newTrips
+  );
+
+
+  currentTripId =
+    null;
+
+
+  showHome();
+
+}
+
+
+function showTemplateList() {
+
+  hideAllScreens();
+
+  renderTemplateList();
+
+
+  document
+    .getElementById(
+      "templateList"
+    )
+    .classList.remove(
+      "hidden"
+    );
+
+}
+
+
+function renderTemplateList() {
+
+  const templates =
+    getTemplates();
+
+
+  const container =
+    document.getElementById(
+      "templateListContainer"
+    );
+
+
+  container.innerHTML =
+    "";
+
+
+  Object.keys(
+    templates
+  ).forEach(
+    function(key) {
+
+      const template =
+        templates[key];
+
+
+      const row =
+        document.createElement(
+          "div"
+        );
+
+
+      row.className =
+        "template-row";
+
+
+      const info =
+        document.createElement(
+          "div"
+        );
+
+
+      const title =
+        document.createElement(
+          "h3"
+        );
+
+
+      title.textContent =
+        template.title;
+
+
+      const count =
+        document.createElement(
+          "div"
+        );
+
+
+      count.className =
+        "template-count";
+
+
+      count.textContent =
+        template.items.length
+        + "項目";
+
+
+      info.appendChild(
+        title
+      );
+
+      info.appendChild(
+        count
+      );
+
+
+      const button =
+        document.createElement(
+          "button"
+        );
+
+
+      button.className =
+        "small-button";
+
+
+      button.textContent =
+        "編集";
+
+
+      button.onclick =
+        function() {
+
+          openTemplateEditor(
+            key
+          );
+
+        };
+
+
+      row.appendChild(
+        info
+      );
+
+      row.appendChild(
+        button
+      );
+
+
+      container.appendChild(
+        row
+      );
+
+    }
+  );
+
+}
+
+
+function openTemplateEditor(
+  key
+) {
+
+  const templates =
+    getTemplates();
+
+
+  currentTemplateKey =
+    key;
+
+
+  const template =
+    templates[key];
+
+
+  if (!template) {
+    return;
+  }
+
+
+  document
+    .getElementById(
+      "templateEditorTitle"
+    )
+    .textContent =
+    template.title;
+
+
+  renderTemplateItems();
+
+
+  document
+    .getElementById(
+      "newTemplateItem"
+    )
+    .value = "";
+
+
+  hideAllScreens();
+
+
+  document
+    .getElementById(
+      "templateEditor"
+    )
+    .classList.remove(
+      "hidden"
+    );
+
+}
+
+
+function renderTemplateItems() {
+
+  const templates =
+    getTemplates();
+
+
+  const template =
+    templates[
+      currentTemplateKey
+    ];
+
+
+  const container =
+    document.getElementById(
+      "templateItems"
+    );
+
+
+  container.innerHTML =
+    "";
+
+
+  if (!template) {
+    return;
+  }
+
+
+  template.items
+    .forEach(
+      function(
+        item,
+        index
+      ) {
+
+        const row =
+          document.createElement(
+            "div"
+          );
+
+
+        row.className =
+          "editor-item";
+
+
+        const name =
+          document.createElement(
+            "div"
+          );
+
+
+        name.className =
+          "editor-item-name";
+
+
+        name.textContent =
+          item;
+
+
+        const button =
+          document.createElement(
+            "button"
+          );
+
+
+        button.className =
+          "delete-button";
+
+
+        button.textContent =
+          "削除";
+
+
+        button.onclick =
+          function() {
+
+            deleteTemplateItem(
+              index
+            );
+
+          };
+
+
+        row.appendChild(
+          name
+        );
+
+        row.appendChild(
+          button
+        );
+
+
+        container.appendChild(
+          row
+        );
+
+      }
+    );
+
+}
+
+
+function addTemplateItem() {
+
+  const input =
+    document.getElementById(
+      "newTemplateItem"
+    );
+
+
+  const value =
+    input.value.trim();
+
+
+  if (!value) {
+    return;
+  }
+
+
+  const templates =
+    getTemplates();
+
+
+  const template =
+    templates[
+      currentTemplateKey
+    ];
+
+
+  if (!template) {
+    return;
+  }
+
+
+  if (
+    template.items.includes(
+      value
+    )
+  ) {
+
+    alert(
+      "同じ項目がすでにあります"
+    );
+
+    return;
+
+  }
+
+
+  template.items.push(
+    value
+  );
+
+
+  saveTemplates(
+    templates
+  );
+
+
+  input.value =
+    "";
+
+
+  renderTemplateItems();
+
+}
+
+
+function deleteTemplateItem(
+  index
+) {
+
+  const templates =
+    getTemplates();
+
+
+  const template =
+    templates[
+      currentTemplateKey
+    ];
+
+
+  if (!template) {
+    return;
+  }
+
+
+  template.items.splice(
+    index,
+    1
+  );
+
+
+  saveTemplates(
+    templates
+  );
+
+
+  renderTemplateItems();
+
+}
+
+
+function resetTemplates() {
+
+  const ok =
+    confirm(
+      "すべてのテンプレートを初期状態に戻しますか？"
+    );
+
+
+  if (!ok) {
+    return;
+  }
+
+
+  saveTemplates(
+    cloneDefaultTemplates()
+  );
+
+
+  localStorage.setItem(
+    TEMPLATE_VERSION_KEY,
+    CURRENT_TEMPLATE_VERSION
+  );
+
+
+  renderTemplateList();
+
+
+  alert(
+    "テンプレートを初期状態に戻しました"
+  );
+
+}
+
+
+function exportBackup() {
+
+  const backupData = {
+
+    app:
+      "travel-packing",
+
+    version:
+      2,
+
+    exportedAt:
+      new Date()
+        .toISOString(),
+
+    templateVersion:
+      CURRENT_TEMPLATE_VERSION,
+
+    trips:
+      getTrips(),
+
+    templates:
+      getTemplates()
+
+  };
+
+
+  const json =
+    JSON.stringify(
+      backupData,
+      null,
+      2
+    );
+
+
+  const blob =
+    new Blob(
+      [json],
+      {
+        type:
+          "application/json"
+      }
+    );
+
+
+  const url =
+    URL.createObjectURL(
+      blob
+    );
+
+
+  const link =
+    document.createElement(
+      "a"
+    );
+
+
+  const today =
+    new Date();
+
+
+  const filename =
+    "travel-packing-backup-"
+    + today.getFullYear()
+    + "-"
+    + String(
+        today.getMonth() + 1
+      ).padStart(
+        2,
+        "0"
+      )
+    + "-"
+    + String(
+        today.getDate()
+      ).padStart(
+        2,
+        "0"
+      )
+    + ".json";
+
+
+  link.href =
+    url;
+
+
+  link.download =
+    filename;
+
+
+  document.body.appendChild(
+    link
+  );
+
+
+  link.click();
+
+
+  document.body.removeChild(
+    link
+  );
+
+
+  setTimeout(
+    function() {
+
+      URL.revokeObjectURL(
+        url
+      );
+
+    },
+    1000
+  );
+
+}
+
+
+function selectBackupFile() {
+
+  document
+    .getElementById(
+      "backupFileInput"
+    )
+    .click();
+
+}
+
+
+function importBackup(
+  event
+) {
+
+  const file =
+    event.target
+      .files[0];
+
+
+  if (!file) {
+    return;
+  }
+
+
+  const reader =
+    new FileReader();
+
+
+  reader.onload =
+    function() {
+
+      try {
+
+        const data =
+          JSON.parse(
+            reader.result
+          );
+
+
+        if (
+          !data ||
+          data.app !==
+          "travel-packing"
+        ) {
+
+          throw new Error();
+
+        }
+
+
+        if (
+          !Array.isArray(
+            data.trips
+          )
+        ) {
+
+          throw new Error();
+
+        }
+
+
+        if (
+          !data.templates ||
+          typeof data.templates !==
+          "object"
+        ) {
+
+          throw new Error();
+
+        }
+
+
+        const ok =
+          confirm(
+            "現在のデータを、バックアップの内容で置き換えますか？"
+          );
+
+
+        if (!ok) {
+
+          event.target.value =
+            "";
+
+          return;
+
+        }
+
+
+        saveTrips(
+          data.trips.map(
+            normalizeTrip
+          )
+        );
+
+
+        saveTemplates(
+          upgradeTemplateData(
+            data.templates
+          )
+        );
+
+
+        localStorage.setItem(
+          TEMPLATE_VERSION_KEY,
+          CURRENT_TEMPLATE_VERSION
+        );
+
+
+        migrateTripTemplateSelections();
+
+
+        showHome();
+
+
+        alert(
+          "バックアップを復元しました"
+        );
+
+
+      } catch {
+
+        alert(
+          "このバックアップファイルは読み込めませんでした"
+        );
+
+      }
+
+
+      event.target.value =
+        "";
+
+    };
+
+
+  reader.readAsText(
+    file
+  );
+
+}
+
+
+function formatDateRange(
+  startDate,
+  endDate
+) {
+
+  if (
+    !startDate &&
+    !endDate
+  ) {
+    return "";
+  }
+
+
+  if (
+    startDate &&
+    !endDate
+  ) {
+
+    return formatDate(
+      startDate
+    );
+
+  }
+
+
+  if (
+    !startDate &&
+    endDate
+  ) {
+
+    return formatDate(
+      endDate
+    );
+
+  }
+
+
+  return (
+    formatDate(
+      startDate
+    )
+    + " 〜 "
+    + formatDate(
+      endDate
+    )
+  );
+
+}
+
+
+function formatDate(
+  dateString
+) {
+
+  if (!dateString) {
+    return "";
+  }
+
+
+  const parts =
+    dateString.split(
+      "-"
+    );
+
+
+  if (
+    parts.length !== 3
+  ) {
+    return dateString;
+  }
+
+
+  const year =
+    parts[0];
+
+  const month =
+    Number(
+      parts[1]
+    );
+
+  const day =
+    Number(
+      parts[2]
+    );
+
+
+  return (
+    year
+    + "年"
+    + month
+    + "月"
+    + day
+    + "日"
+  );
+
+}
+
+
+function initializeApp() {
+
+  migrateOldTripData();
+
+  migrateTemplates();
+
+  migrateTripTemplateSelections();
+
+
+  const trips =
+    getTrips();
+
+
+  saveTrips(
+    trips
+  );
+
+
+  renderTripTypeOptions(
+    []
+  );
+
+
+  renderTripList();
+
+}
+
+
+initializeApp();
+
+</script>
+
+<script src="./pwa.js"></script>
+
+</body>
+</html>
